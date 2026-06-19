@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import imgBeacon from '../../assets/Introduction/BLE Beacon Top Down.jpg';
+import imgViper  from '../../assets/Introduction/Viper Link Top Down.jpg';
+import imgWasp   from '../../assets/Introduction/wasp-with-tr-edited.jpg';
+---
+
+<section class="intro-section" id="introduction">
+  <div class="page-container">
+
+    <!-- Text -->
+    <div class="intro-text reveal">
+      <span class="section-label">Overview</span>
+      <h1 class="section-title">Introduction</h1>
+      <p class="body-text">
+        Our Bluetooth-based radio telemetry system supports a wide variety of wildlife research goals.
+        Most importantly, it allows for long-term, continuous monitoring of individual animals,
+        potentially over their entire lifespan. By using multiple receivers, you can track animal
+        activity and estimate their positions using radio fingerprinting. The transmitters can also
+        be equipped with different sensors, such as temperature sensors.
+      </p>
+      <p class="body-text" style="margin-top:1rem;">
+        The system uses a custom version of the Bluetooth Low Energy (BLE) protocol to improve battery
+        life and transmission range. The transmitters come in many sizes, from an ultra-lightweight
+        60&nbsp;mg tag to larger units weighing a few grams that can operate for over 5 years.
+      </p>
+    </div>
+
+    <!-- Asymmetric image grid: 2 landscape left | 1 portrait right -->
+    <div class="intro-gallery reveal" style="transition-delay:0.15s;">
+
+      <!-- Top-left: BLE Beacon (landscape 16:10) -->
+      <div class="img-wrap img-beacon glass-card">
+        <Image src={imgBeacon} alt="BLE beacon top-down view" class="gallery-img" />
+      </div>
+
+      <!-- Bottom-left: Wasp with transmitter (~3:2 landscape) -->
+      <div class="img-wrap img-wasp glass-card">
+        <Image src={imgWasp} alt="Wasp with radio transmitter attached" class="gallery-img" />
+      </div>
+
+      <!-- Right: Viper Link portrait (13:17) -->
+      <div class="img-wrap img-viper glass-card">
+        <Image src={imgViper} alt="Viper Link receiver top-down view" class="gallery-img" />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.intro-section {
+  padding-block: 5rem 4rem;
+}
+
+.intro-text {
+  margin-bottom: 3rem;
+}
+
+/* ── Asymmetric grid ───────────────────────────────────────── */
+.intro-gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0.75rem;
+  height: 520px;
+}
+
+.img-beacon { grid-column: 1; grid-row: 1; }
+.img-wasp   { grid-column: 1; grid-row: 2; }
+.img-viper  { grid-column: 2; grid-row: 1 / 3; }
+
+.img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.img-wrap:hover .gallery-img {
+  transform: scale(1.03);
+}
+
+/* ── Mobile: stack vertically ─────────────────────────────── */
+@media (max-width: 767px) {
+  .intro-gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    height: auto;
+  }
+  .img-beacon { grid-column: 1; grid-row: 1; min-height: 220px; }
+  .img-viper  { grid-column: 1; grid-row: 2; min-height: 280px; }
+  .img-wasp   { grid-column: 1; grid-row: 3; min-height: 220px; }
+}
+</style>

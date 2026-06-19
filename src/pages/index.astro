@@ -1,17 +1,75 @@
 ---
-
+import BaseLayout            from '../layouts/BaseLayout.astro';
+import Banner                from '../components/sections/Banner.astro';
+import Introduction          from '../components/sections/Introduction.astro';
+import StationaryReceivers   from '../components/sections/StationaryReceivers.astro';
+import ReceiverNetwork       from '../components/sections/ReceiverNetwork.astro';
+import DataLogger            from '../components/sections/DataLogger.astro';
+import RadioFingerprinting   from '../components/sections/RadioFingerprinting.astro';
+import RadioTraps            from '../components/sections/RadioTraps.astro';
+import HandheldReceivers     from '../components/sections/HandheldReceivers.astro';
+import PhoneReceivers        from '../components/sections/PhoneReceivers.astro';
+import ProsConsComparison    from '../components/sections/ProsConsComparison.astro';
+import ViperBeacon           from '../components/sections/ViperBeacon.astro';
+import InsectTransmitters    from '../components/sections/InsectTransmitters.astro';
+import CustomTransmitters    from '../components/sections/CustomTransmitters.astro';
+import PageFooter            from '../components/sections/PageFooter.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <main>
+
+    <!-- ── Hero Banner ──────────────────────────────────────── -->
+    <Banner />
+
+    <!-- ── Introduction ─────────────────────────────────────── -->
+    <Introduction />
+
+    <!-- ── BLE Stationary Receivers ─────────────────────────── -->
+    <div class="section-divider page-container" style="margin-block: 3rem;"></div>
+    <StationaryReceivers />
+    <ReceiverNetwork />
+    <DataLogger />
+    <RadioFingerprinting />
+    <RadioTraps />
+
+    <!-- ── Handheld BLE Receivers ───────────────────────────── -->
+    <div class="section-divider page-container" style="margin-block: 3rem;"></div>
+    <HandheldReceivers />
+    <PhoneReceivers />
+
+    <!-- ── Pros / Cons Comparison ───────────────────────────── -->
+    <div class="section-divider page-container" style="margin-block: 3rem;"></div>
+    <ProsConsComparison />
+
+    <!-- ── Transmitters ─────────────────────────────────────── -->
+    <div class="section-divider page-container" style="margin-block: 3rem;"></div>
+    <section class="transmitters-header" id="transmitters">
+      <div class="page-container">
+        <div class="reveal">
+          <span class="section-label">Product Line</span>
+          <h2 class="section-title">Transmitters</h2>
+          <p class="body-text">
+            We offer several types of BLE transmitters depending on your project needs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <ViperBeacon />
+    <div class="section-divider page-container" style="margin-block: 2.5rem;"></div>
+    <InsectTransmitters />
+    <div class="section-divider page-container" style="margin-block: 2.5rem;"></div>
+    <CustomTransmitters />
+
+    <!-- ── Footer ───────────────────────────────────────────── -->
+    <PageFooter />
+
+  </main>
+</BaseLayout>
+
+<style>
+.transmitters-header {
+  padding-block: 4rem 0;
+}
+</style>

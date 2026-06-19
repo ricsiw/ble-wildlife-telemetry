@@ -1,0 +1,88 @@
+---
+import { Image } from 'astro:assets';
+import imgMap from '../../assets/urban-telemetry-map.jpg';
+---
+
+<section class="network-section" id="receiver-network">
+  <div class="page-container">
+    <div class="network-inner">
+
+      <!-- Text side -->
+      <div class="network-text reveal">
+        <span class="section-label">Connectivity</span>
+        <h3 class="subsection-title">Receiver Network</h3>
+        <p class="body-text">
+          The receivers connect to each other wirelessly using DigiMesh technology. At the center
+          of this network is a computer, like a Raspberry Pi, which collects, processes, and
+          displays the data.
+        </p>
+        <p class="body-text" style="margin-top:1rem;">
+          For projects covering larger areas, the receivers can connect to the central computer
+          over an internet connection. This allows you to monitor animals in urban environments
+          or larger areas beyond what the DigiMesh radio network could cover.
+        </p>
+      </div>
+
+      <!-- Map image -->
+      <div class="network-map reveal reveal-delay-1">
+        <div class="map-card glass-card">
+          <Image src={imgMap} alt="Urban telemetry coverage map" class="map-img" />
+          <div class="map-badge">DigiMesh + Internet Coverage</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.network-section {
+  padding-block: 3.5rem;
+}
+
+.network-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.map-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.map-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.map-card:hover .map-img {
+  transform: scale(1.02);
+}
+
+.map-badge {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--c-teal);
+  background: rgba(15, 31, 29, 0.85);
+  border: 1px solid rgba(78, 204, 163, 0.3);
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.4rem;
+}
+
+@media (max-width: 900px) {
+  .network-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>

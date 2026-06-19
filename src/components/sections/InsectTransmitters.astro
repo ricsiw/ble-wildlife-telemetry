@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+import img60mg from '../../assets/Insect/60-mg-transmitter.jpg';
+import img90mg from '../../assets/Insect/90mg-transmitter.jpg';
+---
+
+<section class="insect-section" id="insect-transmitters">
+  <div class="page-container">
+
+    <div class="reveal">
+      <span class="section-label">Ultra-lightweight</span>
+      <h3 class="subsection-title">Insect Transmitters</h3>
+      <p class="body-text">
+        Using BLE allows us to build ultra-lightweight transmitters. Our smallest model weighs
+        only <strong style="color:var(--c-teal);">60 mg</strong> — making it the lightest active
+        wildlife radio telemetry transmitter available, to our knowledge. For projects that need
+        longer battery life, we also make a slightly larger version weighing around 100 mg.
+      </p>
+    </div>
+
+    <div class="insect-grid">
+
+      <div class="insect-card reveal reveal-delay-1">
+        <div class="glass-card img-outer">
+          <Image src={img60mg} alt="60 mg BLE insect transmitter" class="insect-img" />
+        </div>
+        <div class="weight-badge">60 mg</div>
+        <p class="weight-label">Smallest Model</p>
+      </div>
+
+      <div class="insect-card reveal reveal-delay-2">
+        <div class="glass-card img-outer">
+          <Image src={img90mg} alt="90 mg BLE insect transmitter" class="insect-img" />
+        </div>
+        <div class="weight-badge">~100 mg</div>
+        <p class="weight-label">Extended Battery</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.insect-section {
+  padding-block: 4rem 3rem;
+}
+
+.insect-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.insect-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img-outer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.insect-img {
+  width: 100%;
+  aspect-ratio: 3267 / 1838; /* approx 16:9 — use for both */
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.img-outer:hover .insect-img {
+  transform: scale(1.04);
+}
+
+.weight-badge {
+  margin-top: 0.9rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--c-teal);
+  letter-spacing: 0.02em;
+}
+
+.weight-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--c-text-muted);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 640px) {
+  .insect-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

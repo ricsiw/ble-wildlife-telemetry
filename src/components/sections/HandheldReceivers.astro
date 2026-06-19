@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import imgClosest from '../../assets/Handheld/handheld-test-closest.jpg';
+import imgMid     from '../../assets/Handheld/handheld-test-mid.jpg';
+import imgFar     from '../../assets/Handheld/handheld-test-far.jpg';
+
+const rangeLabels = [
+  { label: '~0 m', caption: 'Closest', img: imgClosest, alt: 'Handheld receiver test — very close range' },
+  { label: '~150 m', caption: 'Mid Range', img: imgMid, alt: 'Handheld receiver test — mid range' },
+  { label: '~3 km', caption: 'Maximum', img: imgFar, alt: 'Handheld receiver test — maximum open field range' },
+];
+---
+
+<section class="handheld-section" id="handheld-receivers">
+  <div class="page-container">
+
+    <!-- Heading + intro -->
+    <div class="reveal">
+      <span class="section-label">Mobile Tracking</span>
+      <h2 class="section-title">Handheld BLE Receivers</h2>
+    </div>
+
+    <div class="handheld-intro reveal">
+      <p class="body-text">
+        The transmitters also work with handheld receivers for manual mobile tracking. This is very
+        useful when your project requires ultra-lightweight transmitters — such as for tracking
+        insects — or when you need to pinpoint the exact location of a tagged animal.
+      </p>
+      <p class="body-text" style="margin-top:0.75rem;">
+        In an open area with a direct line of sight, the maximum range is around <strong style="color:var(--c-teal);">3 kilometres</strong>.
+        In a dense forest, the range is typically around 250 metres. All data is displayed on a
+        dedicated Android app, which also logs information for later analysis.
+      </p>
+    </div>
+
+    <!-- 3 portrait images side by side -->
+    <div class="range-grid">
+      {rangeLabels.map((item, i) => (
+        <div class={`range-item reveal reveal-delay-${i}`}>
+          <div class="glass-card range-card">
+            <Image src={item.img} alt={item.alt} class="range-img" />
+          </div>
+          <div class="range-meta">
+            <span class="range-distance">{item.label}</span>
+            <span class="range-caption">{item.caption}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.handheld-section {
+  padding-block: 5rem 4rem;
+}
+
+.handheld-intro {
+  margin-bottom: 2.5rem;
+}
+
+.range-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.range-card {
+  overflow: hidden;
+}
+
+.range-img {
+  width: 100%;
+  aspect-ratio: 957 / 1700;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.range-card:hover .range-img {
+  transform: scale(1.03);
+}
+
+.range-meta {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.range-distance {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--c-teal);
+}
+
+.range-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--c-text-muted);
+}
+
+@media (max-width: 640px) {
+  .range-grid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+    margin-inline: auto;
+  }
+  .range-img {
+    aspect-ratio: 4 / 3;
+  }
+}
+</style>

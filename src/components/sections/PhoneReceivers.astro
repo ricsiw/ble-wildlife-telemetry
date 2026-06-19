@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import imgApp1 from '../../assets/Phone/ble-app-1.jpg';
+import imgApp2 from '../../assets/Phone/ble-app-2.jpg';
+---
+
+<section class="phone-section" id="phone-receivers">
+  <div class="page-container">
+    <div class="phone-inner">
+
+      <!-- Screenshots: 2 phone portraits side by side -->
+      <div class="phone-screenshots reveal">
+        <div class="phone-frame glass-card">
+          <Image src={imgApp1} alt="BLE Android app — device list view" class="phone-img" />
+        </div>
+        <div class="phone-frame glass-card">
+          <Image src={imgApp2} alt="BLE Android app — signal detail view" class="phone-img" />
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="phone-text reveal reveal-delay-1">
+        <span class="section-label">Smartphones</span>
+        <h3 class="subsection-title">Phones as Receivers</h3>
+        <p class="body-text">
+          A major advantage of using Bluetooth is that standard smartphones can receive the data
+          packets. This means you can do basic data collection simply by running Bluetooth scans in
+          the background on ordinary phones.
+        </p>
+        <p class="body-text" style="margin-top:1rem;">
+          Our dedicated Android app displays all incoming data live and logs it locally for later
+          analysis — turning any Android device into a portable wildlife telemetry receiver.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.phone-section {
+  padding-block: 3.5rem;
+}
+
+.phone-inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.phone-screenshots {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.phone-frame {
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.phone-img {
+  width: 140px;
+  aspect-ratio: 1080 / 2340;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.45s ease;
+}
+.phone-frame:hover .phone-img {
+  transform: scale(1.03);
+}
+
+@media (min-width: 1100px) {
+  .phone-img {
+    width: 180px;
+  }
+}
+
+@media (max-width: 900px) {
+  .phone-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .phone-screenshots {
+    justify-content: center;
+  }
+  .phone-img {
+    width: 130px;
+  }
+}
+</style>

@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+import imgReceiverSide from '../../assets/BLE Stationary Receivers/receier-side-w-cables.jpg';
+import imgViperLink    from '../../assets/BLE Stationary Receivers/Viper Link.jpg';
+---
+
+<section class="receivers-section" id="stationary-receivers">
+  <div class="page-container">
+
+    <!-- Heading -->
+    <div class="reveal">
+      <span class="section-label">Hardware</span>
+      <h2 class="section-title">BLE Stationary Receivers</h2>
+    </div>
+
+    <!-- Content grid: text + images -->
+    <div class="receivers-grid">
+
+      <div class="receivers-text reveal">
+        <p class="body-text">
+          These receivers let you monitor hundreds of animals concurrently. The system works well
+          for gathering sensor data in controlled environments like animal enclosures, as well as
+          for tracking animal movements in their natural habitats.
+        </p>
+      </div>
+
+      <div class="receivers-images reveal reveal-delay-1">
+        <!-- Portrait: 935×1119 -->
+        <div class="img-card glass-card">
+          <Image src={imgReceiverSide} alt="BLE receiver with cables — side view" class="receiver-img" />
+        </div>
+        <!-- Landscape: 1600×1232 -->
+        <div class="img-card glass-card">
+          <Image src={imgViperLink} alt="Viper Link BLE receiver" class="receiver-img" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.receivers-section {
+  padding-block: 4rem 3rem;
+}
+
+.receivers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.receivers-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.img-card {
+  overflow: hidden;
+}
+
+.receiver-img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+.img-card:hover .receiver-img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 900px) {
+  .receivers-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .receivers-images {
+    grid-template-columns: 1fr;
+  }
+  .receiver-img {
+    aspect-ratio: 4 / 3;
+  }
+}
+</style>

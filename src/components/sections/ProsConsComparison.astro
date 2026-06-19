@@ -1,0 +1,219 @@
+---
+import { Image } from 'astro:assets';
+import img868 from '../../assets/Comparison/forest-range-test-868.jpg';
+import img24  from '../../assets/Comparison/forest-range-test-24.jpg';
+
+const pros = [
+  'Extremely low power consumption, leading to long operating times.',
+  'Direct broadcasting to standard smartphones.',
+  'Small, lightweight transmitters weighing as low as 60 mg.',
+  'Fast and simple data transfer for sensor metrics.',
+  'Short antenna length, around 3 cm.',
+];
+
+const cons = [
+  'Much shorter reception range compared to the 868 MHz system.',
+];
+---
+
+<section class="comparison-section" id="pros-cons">
+  <div class="page-container">
+
+    <div class="reveal">
+      <span class="section-label">System Comparison</span>
+      <h2 class="section-title">BLE vs. 868 MHz</h2>
+      <p class="body-text" style="margin-bottom:2rem;">
+        A direct comparison of our Bluetooth Low Energy system against the 868 MHz Hornet platform.
+      </p>
+    </div>
+
+    <!-- Combined table -->
+    <div class="reveal table-wrapper glass-card">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th class="col-type">Type</th>
+            <th>Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pros.map((text) => (
+            <tr class="pro-row">
+              <td class="type-cell">
+                <span class="type-badge type-pro">Advantage</span>
+              </td>
+              <td>{text}</td>
+            </tr>
+          ))}
+          {cons.map((text) => (
+            <tr class="con-row">
+              <td class="type-cell">
+                <span class="type-badge type-con">Limitation</span>
+              </td>
+              <td>{text}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DaisyUI diff slider for range comparison -->
+    <div class="reveal" style="margin-top:3rem;">
+      <p class="section-label" style="margin-bottom:0.75rem;">Range Comparison</p>
+      <div class="diff-wrapper">
+        <div class="diff aspect-video">
+          <div class="diff-item-1">
+            <Image src={img868} alt="868 MHz Hornet transmitter range in dense forest" />
+          </div>
+          <div class="diff-item-2">
+            <Image src={img24} alt="2.4 GHz BLE transmitter range in dense forest" />
+          </div>
+          <div class="diff-resizer"></div>
+        </div>
+        <!-- Labels -->
+        <div class="diff-labels">
+          <span class="diff-label diff-label-left">868 MHz Hornet</span>
+          <span class="diff-label diff-label-right">2.4 GHz BLE</span>
+        </div>
+        <p class="diff-caption">
+          2.4 GHz BLE vs. 868 MHz Hornet transmitter range in a dense forest environment.
+          Drag the slider to compare.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.comparison-section {
+  padding-block: 5rem 4rem;
+}
+
+/* ── Table ──────────────────────────────────────────────────── */
+.table-wrapper {
+  overflow: hidden;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.82rem, 1.4vw, 0.95rem);
+}
+
+.comparison-table thead tr {
+  background: rgba(78, 204, 163, 0.12);
+  border-bottom: 1px solid rgba(78, 204, 163, 0.2);
+}
+
+.comparison-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--c-teal);
+  padding: 0.85rem 1.25rem;
+  text-align: left;
+  font-weight: 700;
+}
+
+.comparison-table td {
+  padding: 0.85rem 1.25rem;
+  color: var(--c-text-dim);
+  line-height: 1.6;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(78, 204, 163, 0.07);
+}
+
+.col-type { width: 130px; }
+
+.pro-row:nth-child(odd) td  { background: rgba(22, 40, 36, 0.3); }
+.pro-row:nth-child(even) td { background: rgba(22, 40, 36, 0.0); }
+.con-row td                 { background: rgba(240, 168, 80, 0.06); }
+.con-row td:last-child      { color: var(--c-text); }
+
+/* Type badges */
+.type-cell { white-space: nowrap; }
+
+.type-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.63rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.3rem;
+}
+
+.type-pro {
+  background: rgba(78, 204, 163, 0.12);
+  color: var(--c-teal);
+  border: 1px solid rgba(78, 204, 163, 0.25);
+}
+
+.type-con {
+  background: rgba(240, 168, 80, 0.1);
+  color: var(--c-amber);
+  border: 1px solid rgba(240, 168, 80, 0.25);
+}
+
+/* ── Diff slider ─────────────────────────────────────────────── */
+.diff-wrapper {
+  max-width: 900px;
+}
+
+.diff {
+  border-radius: 0.85rem;
+  overflow: hidden;
+  border: 1px solid rgba(78, 204, 163, 0.18);
+}
+
+.diff-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.6rem;
+  padding-inline: 0.25rem;
+}
+
+.diff-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--c-teal);
+}
+
+.diff-caption {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .comparison-table,
+  .comparison-table thead,
+  .comparison-table tbody,
+  .comparison-table tr,
+  .comparison-table td {
+    display: block;
+  }
+  .comparison-table thead {
+    display: none;
+  }
+  .comparison-table td {
+    padding: 0.6rem 1.25rem;
+    border-bottom: none;
+  }
+  .comparison-table td.type-cell {
+    padding-bottom: 0.15rem;
+  }
+  .comparison-table tr td:last-child {
+    padding-top: 0.15rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(78, 204, 163, 0.1);
+  }
+}
+</style>

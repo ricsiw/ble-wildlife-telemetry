@@ -1,0 +1,96 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="page-footer" id="footer">
+  <div class="page-container">
+    <div class="footer-inner">
+
+      <div class="footer-brand">
+        <span class="footer-logo">BLE Telemetry</span>
+        <p class="footer-tagline">Bluetooth Radio Telemetry — Integrated Temperature Monitoring</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#introduction" class="footer-link">Overview</a>
+        <a href="#stationary-receivers" class="footer-link">Receivers</a>
+        <a href="#handheld-receivers" class="footer-link">Handheld</a>
+        <a href="#pros-cons" class="footer-link">Comparison</a>
+        <a href="#transmitters" class="footer-link">Transmitters</a>
+        <a href="#contact-link" class="footer-link">Contact</a>
+      </div>
+
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <p class="footer-copy">© {year} — All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+.page-footer {
+  padding-block: 3rem 2rem;
+  border-top: 1px solid rgba(78, 204, 163, 0.12);
+  margin-top: 5rem;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-logo {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--c-teal);
+  margin-bottom: 0.4rem;
+}
+
+.footer-tagline {
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  line-height: 1.5;
+  max-width: 30ch;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  align-items: center;
+}
+
+.footer-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--c-text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-link:hover {
+  color: var(--c-teal);
+}
+
+.footer-divider {
+  height: 1px;
+  background: rgba(78, 204, 163, 0.1);
+  margin-block: 1.5rem;
+}
+
+.footer-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--c-text-muted);
+  opacity: 0.6;
+}
+</style>

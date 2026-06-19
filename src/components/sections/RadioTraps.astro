@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import imgDeer from '../../assets/deer-with-antenna.jpg';
+---
+
+<section class="radiotraps-section" id="radio-traps">
+  <div class="page-container">
+    <div class="traps-inner">
+
+      <!-- Text -->
+      <div class="traps-text reveal">
+        <span class="section-label">Automation</span>
+        <h3 class="subsection-title">Radio Traps</h3>
+        <p class="body-text">
+          Camera traps are often used to monitor wildlife in a specific area, but this requires
+          manually reviewing hours of footage to identify individuals. Our radio transmitters and
+          receivers offer an automated alternative called "Radio Traps."
+        </p>
+        <p class="body-text" style="margin-top:1rem;">
+          By installing a single receiver at a key location — like a watering hole or a forest
+          clearing — you can automatically detect whenever a tagged animal enters the area. The
+          system records exactly when the animal arrives, how long it stays, and when it leaves.
+        </p>
+        <p class="body-text" style="margin-top:1rem;">
+          Think of it as a 360° camera that instantly identifies marked individuals without needing
+          a clear line of sight, giving you precise tracking data automatically.
+        </p>
+      </div>
+
+      <!-- Deer photo -->
+      <div class="traps-image reveal reveal-delay-1">
+        <div class="glass-card deer-card">
+          <Image src={imgDeer} alt="Deer with radio antenna in natural habitat" class="deer-img" />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.radiotraps-section {
+  padding-block: 3.5rem;
+}
+
+.traps-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.deer-card {
+  overflow: hidden;
+}
+
+.deer-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.deer-card:hover .deer-img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 900px) {
+  .traps-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>

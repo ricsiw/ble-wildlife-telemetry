@@ -1,0 +1,154 @@
+---
+import { Image } from 'astro:assets';
+import imgActivity    from '../../assets/Software/software-activity.png';
+import imgTemperature from '../../assets/Software/software-temperature.png';
+---
+
+<section class="datalogger-section" id="data-logger">
+  <div class="page-container">
+
+    <div class="reveal">
+      <span class="section-label">Software</span>
+      <h3 class="subsection-title">Data Logger Software</h3>
+    </div>
+
+    <div class="datalogger-inner">
+
+      <!-- Text -->
+      <div class="logger-text reveal">
+        <p class="body-text">
+          The data logger software collects, processes, and displays the data. It can run on any
+          Linux or Windows machine, including single board computers like the Raspberry Pi. The user
+          interface is a webpage hosted directly by the software — accessible via any browser on
+          your local network, or anywhere in the world over the internet.
+        </p>
+        <p class="body-text" style="margin-top:1rem;">
+          The data updates live, so you can see current readings and sensor measurements as they
+          happen. The software features status widgets and charts that can smoothly display more
+          than 1 million past data points.
+        </p>
+      </div>
+
+      <!-- Auto-sliding gallery -->
+      <div class="gallery-outer reveal reveal-delay-1">
+        <div class="gallery-card glass-card">
+          <div class="gallery-viewport" id="software-gallery">
+            <div class="slide active">
+              <Image src={imgActivity} alt="Data logger — activity view" class="slide-img" />
+            </div>
+            <div class="slide">
+              <Image src={imgTemperature} alt="Data logger — temperature chart" class="slide-img" />
+            </div>
+          </div>
+
+          <!-- Dots -->
+          <div class="gallery-dots" aria-label="Slide indicators">
+            <button class="dot active" id="dot-0" aria-label="Slide 1"></button>
+            <button class="dot"        id="dot-1" aria-label="Slide 2"></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Simple JS slideshow for the software gallery
+  const slides = document.querySelectorAll('#software-gallery .slide');
+  const dots   = document.querySelectorAll('.gallery-dots .dot');
+  let current  = 0;
+
+  function goTo(index: number) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  // Auto-advance every 4.5 seconds
+  const timer = setInterval(() => goTo((current + 1) % slides.length), 4500);
+
+  // Manual dot click
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      clearInterval(timer);
+      goTo(i);
+    });
+  });
+</script>
+
+<style>
+.datalogger-section {
+  padding-block: 3.5rem;
+}
+
+.datalogger-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+/* ── Gallery ─────────────────────────────────────────────── */
+.gallery-card {
+  overflow: visible;
+  padding: 0;
+}
+
+.gallery-viewport {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0.85rem;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.75s ease;
+}
+.slide.active {
+  opacity: 1;
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Dots ──────────────────────────────────────────────────── */
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(78, 204, 163, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  padding: 0;
+}
+.dot.active {
+  background: var(--c-teal);
+  transform: scale(1.4);
+}
+
+@media (max-width: 900px) {
+  .datalogger-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>

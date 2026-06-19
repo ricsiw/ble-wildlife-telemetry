@@ -1,0 +1,69 @@
+---
+import { Image } from 'astro:assets';
+import imgFP from '../../assets/2-4-fingerprinting-eng.jpg';
+---
+
+<section class="fingerprinting-section" id="radio-fingerprinting">
+  <div class="page-container">
+    <div class="fp-inner">
+
+      <!-- Infographic -->
+      <div class="fp-image reveal">
+        <div class="glass-card fp-card">
+          <Image src={imgFP} alt="Radio fingerprinting infographic — multiple receivers triangulate animal position" class="fp-img" />
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="fp-text reveal reveal-delay-1">
+        <span class="section-label">Positioning</span>
+        <h3 class="subsection-title">Radio Fingerprinting</h3>
+        <p class="body-text">
+          The receivers can be used for radio fingerprinting — a technique to estimate the positions
+          and track the movements of animals. It works by using multiple stationary receivers to pick
+          up the signal from a transmitter at the same time.
+        </p>
+        <p class="body-text" style="margin-top:1rem;">
+          By analyzing these radio signal patterns across the network, the system can determine where
+          the animal is located without requiring any additional hardware or line-of-sight conditions.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.fingerprinting-section {
+  padding-block: 3.5rem;
+}
+
+.fp-inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.fp-card {
+  overflow: hidden;
+}
+
+.fp-img {
+  width: 100%;
+  aspect-ratio: 1653 / 1016;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.fp-card:hover .fp-img {
+  transform: scale(1.02);
+}
+
+@media (max-width: 900px) {
+  .fp-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>
