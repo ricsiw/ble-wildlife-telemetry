@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import Gallery from '../Gallery.astro';
 import imgActivity    from '../../assets/Software/software-activity.png';
 import imgTemperature from '../../assets/Software/software-temperature.png';
 ---
@@ -8,7 +8,6 @@ import imgTemperature from '../../assets/Software/software-temperature.png';
   <div class="page-container">
 
     <div class="reveal">
-      <span class="section-label">Software</span>
       <h3 class="subsection-title">Data Logger Software</h3>
     </div>
 
@@ -29,55 +28,22 @@ import imgTemperature from '../../assets/Software/software-temperature.png';
         </p>
       </div>
 
-      <!-- Auto-sliding gallery -->
+      <!-- Gallery -->
       <div class="gallery-outer reveal reveal-delay-1">
-        <div class="gallery-card glass-card">
-          <div class="gallery-viewport" id="software-gallery">
-            <div class="slide active">
-              <Image src={imgActivity} alt="Data logger — activity view" class="slide-img" />
-            </div>
-            <div class="slide">
-              <Image src={imgTemperature} alt="Data logger — temperature chart" class="slide-img" />
-            </div>
-          </div>
-
-          <!-- Dots -->
-          <div class="gallery-dots" aria-label="Slide indicators">
-            <button class="dot active" id="dot-0" aria-label="Slide 1"></button>
-            <button class="dot"        id="dot-1" aria-label="Slide 2"></button>
-          </div>
-        </div>
+        <Gallery
+          containerId="software-gallery"
+          images={[
+            { src: imgActivity, alt: "Data logger — activity view" },
+            { src: imgTemperature, alt: "Data logger — temperature chart" },
+          ]}
+          height="540px"
+          autoSlideInterval={4500}
+        />
       </div>
 
     </div>
   </div>
 </section>
-
-<script>
-  // Simple JS slideshow for the software gallery
-  const slides = document.querySelectorAll('#software-gallery .slide');
-  const dots   = document.querySelectorAll('.gallery-dots .dot');
-  let current  = 0;
-
-  function goTo(index: number) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = index;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
-  }
-
-  // Auto-advance every 4.5 seconds
-  const timer = setInterval(() => goTo((current + 1) % slides.length), 4500);
-
-  // Manual dot click
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      clearInterval(timer);
-      goTo(i);
-    });
-  });
-</script>
 
 <style>
 .datalogger-section {
@@ -85,70 +51,18 @@ import imgTemperature from '../../assets/Software/software-temperature.png';
 }
 
 .datalogger-inner {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 3rem;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
   margin-top: 2rem;
 }
 
-/* ── Gallery ─────────────────────────────────────────────── */
-.gallery-card {
-  overflow: visible;
-  padding: 0;
-}
-
-.gallery-viewport {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border-radius: 0.85rem;
-}
-
-.slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.75s ease;
-}
-.slide.active {
-  opacity: 1;
-}
-
-.slide-img {
+.logger-text {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
 }
 
-/* ── Dots ──────────────────────────────────────────────────── */
-.gallery-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(78, 204, 163, 0.25);
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-  padding: 0;
-}
-.dot.active {
-  background: var(--c-teal);
-  transform: scale(1.4);
-}
-
-@media (max-width: 900px) {
-  .datalogger-inner {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+.gallery-outer {
+  width: 100%;
 }
 </style>

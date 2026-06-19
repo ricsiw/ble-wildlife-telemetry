@@ -9,7 +9,6 @@ import imgMap from '../../assets/urban-telemetry-map.jpg';
 
       <!-- Text side -->
       <div class="network-text reveal">
-        <span class="section-label">Connectivity</span>
         <h3 class="subsection-title">Receiver Network</h3>
         <p class="body-text">
           The receivers connect to each other wirelessly using DigiMesh technology. At the center
@@ -26,7 +25,7 @@ import imgMap from '../../assets/urban-telemetry-map.jpg';
       <!-- Map image -->
       <div class="network-map reveal reveal-delay-1">
         <div class="map-card glass-card">
-          <Image src={imgMap} alt="Urban telemetry coverage map" class="map-img" />
+          <Image src={imgMap} alt="Urban telemetry coverage map" class="map-img zoomable" />
           <div class="map-badge">DigiMesh + Internet Coverage</div>
         </div>
       </div>
@@ -41,20 +40,29 @@ import imgMap from '../../assets/urban-telemetry-map.jpg';
 }
 
 .network-inner {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 3rem;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.network-text {
+  width: 100%;
+}
+
+.network-map {
+  width: 100%;
 }
 
 .map-card {
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .map-img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1920 / 1080;
   object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
@@ -77,12 +85,6 @@ import imgMap from '../../assets/urban-telemetry-map.jpg';
   border: 1px solid rgba(78, 204, 163, 0.3);
   padding: 0.3rem 0.7rem;
   border-radius: 0.4rem;
-}
-
-@media (max-width: 900px) {
-  .network-inner {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+  pointer-events: none;
 }
 </style>

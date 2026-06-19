@@ -11,16 +11,15 @@ import imgApp2 from '../../assets/Phone/ble-app-2.jpg';
       <!-- Screenshots: 2 phone portraits side by side -->
       <div class="phone-screenshots reveal">
         <div class="phone-frame glass-card">
-          <Image src={imgApp1} alt="BLE Android app — device list view" class="phone-img" />
+          <Image src={imgApp1} alt="BLE Android app — device list view" class="phone-img zoomable" />
         </div>
         <div class="phone-frame glass-card">
-          <Image src={imgApp2} alt="BLE Android app — signal detail view" class="phone-img" />
+          <Image src={imgApp2} alt="BLE Android app — signal detail view" class="phone-img zoomable" />
         </div>
       </div>
 
       <!-- Text -->
       <div class="phone-text reveal reveal-delay-1">
-        <span class="section-label">Smartphones</span>
         <h3 class="subsection-title">Phones as Receivers</h3>
         <p class="body-text">
           A major advantage of using Bluetooth is that standard smartphones can receive the data
@@ -60,7 +59,7 @@ import imgApp2 from '../../assets/Phone/ble-app-2.jpg';
 }
 
 .phone-img {
-  width: 140px;
+  width: 200px;
   aspect-ratio: 1080 / 2340;
   object-fit: cover;
   object-position: top;
@@ -73,7 +72,7 @@ import imgApp2 from '../../assets/Phone/ble-app-2.jpg';
 
 @media (min-width: 1100px) {
   .phone-img {
-    width: 180px;
+    width: 260px;
   }
 }
 
@@ -82,11 +81,17 @@ import imgApp2 from '../../assets/Phone/ble-app-2.jpg';
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+  .phone-text {
+    order: 1;
+  }
+  .phone-screenshots {
+    order: 2;
+  }
   .phone-screenshots {
     justify-content: center;
   }
   .phone-img {
-    width: 130px;
+    width: 160px;
   }
 }
 </style>

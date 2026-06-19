@@ -20,10 +20,9 @@ const cons = [
   <div class="page-container">
 
     <div class="reveal">
-      <span class="section-label">System Comparison</span>
-      <h2 class="section-title">BLE vs. 868 MHz</h2>
+      <h2 class="section-title">BLE vs. 868 MHz Range Comparison for Insect Transmitters in Forest</h2>
       <p class="body-text" style="margin-bottom:2rem;">
-        A direct comparison of our Bluetooth Low Energy system against the 868 MHz Hornet platform.
+        A direct comparison of our Bluetooth Low Energy system against the 868 MHz Hornet platform for insect tracking in dense forest environments.
       </p>
     </div>
 
@@ -57,30 +56,61 @@ const cons = [
       </table>
     </div>
 
-    <!-- DaisyUI diff slider for range comparison -->
+    <!-- Rebuilt comparison slider -->
     <div class="reveal" style="margin-top:3rem;">
       <p class="section-label" style="margin-bottom:0.75rem;">Range Comparison</p>
-      <div class="diff-wrapper">
-        <div class="diff aspect-video">
-          <div class="diff-item-1">
-            <Image src={img868} alt="868 MHz Hornet transmitter range in dense forest" />
+      <div class="compare-wrapper">
+        <div class="compare" id="range-compare" style="--pos: 50%;">
+          <div class="compare-base">
+            <Image src={img24} alt="2.4 GHz BLE transmitter range in dense forest" class="zoomable" />
           </div>
-          <div class="diff-item-2">
-            <Image src={img24} alt="2.4 GHz BLE transmitter range in dense forest" />
+          <div class="compare-overlay">
+            <Image src={img868} alt="868 MHz Hornet transmitter range in dense forest" class="zoomable" />
           </div>
-          <div class="diff-resizer"></div>
+
+          <div class="compare-divider" aria-hidden="true"></div>
+
+          <input
+            class="compare-range"
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            autocomplete="off"
+            aria-label="Range comparison slider"
+          />
         </div>
+
         <!-- Labels -->
-        <div class="diff-labels">
-          <span class="diff-label diff-label-left">868 MHz Hornet</span>
-          <span class="diff-label diff-label-right">2.4 GHz BLE</span>
+        <div class="compare-labels">
+          <span class="compare-label compare-label-left">868 MHz Hornet</span>
+          <span class="compare-label compare-label-right">2.4 GHz BLE</span>
         </div>
-        <p class="diff-caption">
+        <p class="compare-caption">
           2.4 GHz BLE vs. 868 MHz Hornet transmitter range in a dense forest environment.
           Drag the slider to compare.
         </p>
       </div>
     </div>
+
+<script>
+  // Slider rebuilt from scratch using a range input for robust pointer handling.
+  (function() {
+    const compare = document.getElementById('range-compare');
+    if (!compare) return;
+    const range = compare.querySelector('.compare-range');
+    if (!range) return;
+
+    function applyPosition() {
+      compare.style.setProperty('--pos', range.value + '%');
+    }
+
+    range.value = '50';
+    range.addEventListener('input', applyPosition);
+    range.addEventListener('change', applyPosition);
+    applyPosition();
+  })();
+</script>
 
   </div>
 </section>
@@ -158,25 +188,120 @@ const cons = [
   border: 1px solid rgba(240, 168, 80, 0.25);
 }
 
-/* ── Diff slider ─────────────────────────────────────────────── */
-.diff-wrapper {
+/* ── Comparison slider ───────────────────────────────────────── */
+.compare-wrapper {
   max-width: 900px;
 }
 
-.diff {
+.compare {
+  position: relative;
+  height: min(70vh, 540px);
+  min-height: 300px;
   border-radius: 0.85rem;
   overflow: hidden;
   border: 1px solid rgba(78, 204, 163, 0.18);
 }
 
-.diff-labels {
+.compare-base,
+.compare-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.compare-base {
+  z-index: 1;
+}
+
+.compare-overlay {
+  z-index: 2;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.compare-base :global(img),
+.compare-overlay :global(img) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.compare-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  transform: translateX(-50%);
+  width: 3px;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 3;
+  pointer-events: none;
+}
+
+.compare-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid var(--c-teal);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a4f47' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 8l-4 4 4 4'/%3E%3Cpath d='M17 8l4 4-4 4'/%3E%3Cpath d='M3 12h18'/%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+}
+
+.compare-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 5;
+  background: transparent;
+  appearance: none;
+  cursor: ew-resize;
+}
+
+.compare-range::-webkit-slider-runnable-track {
+  height: 100%;
+  background: transparent;
+}
+
+.compare-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+}
+
+.compare-range::-moz-range-track {
+  height: 100%;
+  background: transparent;
+}
+
+.compare-range::-moz-range-thumb {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+}
+
+.compare-labels {
   display: flex;
   justify-content: space-between;
   margin-top: 0.6rem;
   padding-inline: 0.25rem;
 }
 
-.diff-label {
+.compare-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
   font-weight: 700;
@@ -185,7 +310,7 @@ const cons = [
   color: var(--c-teal);
 }
 
-.diff-caption {
+.compare-caption {
   margin-top: 0.5rem;
   font-size: 0.8rem;
   color: var(--c-text-muted);
@@ -193,6 +318,11 @@ const cons = [
 }
 
 @media (max-width: 600px) {
+  .compare {
+    height: min(62vh, 400px);
+    min-height: 240px;
+  }
+
   .comparison-table,
   .comparison-table thead,
   .comparison-table tbody,

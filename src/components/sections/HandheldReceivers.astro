@@ -16,7 +16,6 @@ const rangeLabels = [
 
     <!-- Heading + intro -->
     <div class="reveal">
-      <span class="section-label">Mobile Tracking</span>
       <h2 class="section-title">Handheld BLE Receivers</h2>
     </div>
 
@@ -38,7 +37,7 @@ const rangeLabels = [
       {rangeLabels.map((item, i) => (
         <div class={`range-item reveal reveal-delay-${i}`}>
           <div class="glass-card range-card">
-            <Image src={item.img} alt={item.alt} class="range-img" />
+            <Image src={item.img} alt={item.alt} class="range-img zoomable" />
           </div>
           <div class="range-meta">
             <span class="range-distance">{item.label}</span>

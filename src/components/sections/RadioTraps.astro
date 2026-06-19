@@ -9,7 +9,6 @@ import imgDeer from '../../assets/deer-with-antenna.jpg';
 
       <!-- Text -->
       <div class="traps-text reveal">
-        <span class="section-label">Automation</span>
         <h3 class="subsection-title">Radio Traps</h3>
         <p class="body-text">
           Camera traps are often used to monitor wildlife in a specific area, but this requires
@@ -30,7 +29,7 @@ import imgDeer from '../../assets/deer-with-antenna.jpg';
       <!-- Deer photo -->
       <div class="traps-image reveal reveal-delay-1">
         <div class="glass-card deer-card">
-          <Image src={imgDeer} alt="Deer with radio antenna in natural habitat" class="deer-img" />
+          <Image src={imgDeer} alt="Deer with radio antenna in natural habitat" class="deer-img zoomable" />
         </div>
       </div>
 
@@ -52,13 +51,18 @@ import imgDeer from '../../assets/deer-with-antenna.jpg';
 
 .deer-card {
   overflow: hidden;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 20, 18, 0.35);
 }
 
 .deer-img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  object-position: center top;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   display: block;
   transition: transform 0.5s ease;
 }
@@ -70,6 +74,10 @@ import imgDeer from '../../assets/deer-with-antenna.jpg';
   .traps-inner {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .deer-card {
+    min-height: 440px;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import Gallery from '../Gallery.astro';
 import imgSchematic  from '../../assets/Beacons/beacon-schematic.jpg';
 import imgPackaging  from '../../assets/Beacons/Beacons-In-Packaging.jpg';
 import imgBeacon     from '../../assets/Beacons/BLE Beacon.jpg';
@@ -21,7 +21,6 @@ const specs = [
   <div class="page-container">
 
     <div class="reveal">
-      <span class="section-label">Implantable</span>
       <h3 class="subsection-title">Viper Temperature Monitoring Beacon</h3>
       <p class="body-text">
         Our viper transmitters are built for long-term monitoring and real-time data transfer.
@@ -59,20 +58,18 @@ const specs = [
         </div>
       </div>
 
-      <!-- 3-image gallery -->
-      <div class="viper-images reveal reveal-delay-1">
-        <!-- Schematic (841×581) -->
-        <div class="beacon-img-card glass-card beacon-schematic">
-          <Image src={imgSchematic} alt="Viper beacon schematic drawing" class="beacon-img" />
-        </div>
-        <!-- Packaging (1500×1331, ~square) -->
-        <div class="beacon-img-card glass-card beacon-packaging">
-          <Image src={imgPackaging} alt="Viper beacons in packaging" class="beacon-img" />
-        </div>
-        <!-- Beacon photo (1635×1200, landscape) -->
-        <div class="beacon-img-card glass-card beacon-photo">
-          <Image src={imgBeacon} alt="BLE beacon close-up" class="beacon-img" />
-        </div>
+      <!-- Spec image sliding gallery -->
+      <div class="viper-gallery-wrap reveal reveal-delay-1">
+        <Gallery
+          containerId="beacon-gallery"
+          images={[
+            { src: imgSchematic, alt: "Viper beacon schematic drawing", caption: "Viper Beacon Schematic Drawing" },
+            { src: imgPackaging, alt: "Viper beacons in packaging", caption: "Viper Beacons in Packaging" },
+            { src: imgBeacon, alt: "BLE beacon close-up", caption: "BLE Beacon Close-Up" },
+          ]}
+          height="520px"
+          autoSlideInterval={5000}
+        />
       </div>
 
     </div>
@@ -153,61 +150,25 @@ const specs = [
   line-height: 1.5;
 }
 
-/* ── Image gallery ──────────────────────────────────────────── */
-.viper-images {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 0.6rem;
-}
-
-.beacon-img-card {
-  overflow: hidden;
-}
-
-.beacon-img {
+/* ── Gallery styling ───────────────────────────────────────── */
+.viper-gallery-wrap {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.45s ease;
-}
-.beacon-img-card:hover .beacon-img {
-  transform: scale(1.04);
 }
 
-/* Schematic spans both columns, shorter height */
-.beacon-schematic {
-  grid-column: 1 / 3;
-  grid-row: 1;
-}
-.beacon-schematic .beacon-img {
-  aspect-ratio: 841 / 581;
-  height: auto;
-}
-
-/* Packaging — square-ish */
-.beacon-packaging {
-  grid-column: 1;
-  grid-row: 2;
-}
-.beacon-packaging .beacon-img {
-  aspect-ratio: 1 / 1;
-}
-
-/* Photo — landscape */
-.beacon-photo {
-  grid-column: 2;
-  grid-row: 2;
-}
-.beacon-photo .beacon-img {
-  aspect-ratio: 1635 / 1200;
-}
-
-@media (max-width: 900px) {
+@media (max-width: 1023px) {
   .viper-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .viper-section {
+    padding-block: 3rem 2rem;
+  }
+  
+  .viper-grid {
+    gap: 1.5rem;
   }
 }
 </style>
+

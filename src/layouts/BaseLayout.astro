@@ -32,7 +32,7 @@ const {
   <body>
     <slot />
 
-    <!-- Scroll-reveal: IntersectionObserver for .reveal elements -->
+    <!-- Scroll-reveal: IntersectionObserver for .reveal elements & pan-zoom ImageLightbox -->
     <script>
       const io = new IntersectionObserver(
         (entries) => {
@@ -46,6 +46,240 @@ const {
         { threshold: 0.1, rootMargin: "0px 0px -30px 0px" }
       );
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+      // ─── Reusable Zoom & Pan Lightbox Class ─────────────────
+      class ImageLightbox {
+        private modal: HTMLElement | null = null;
+        private img: HTMLImageElement | null = null;
+        private closeBtn: HTMLElement | null = null;
+        private zoomInBtn: HTMLElement | null = null;
+        private zoomOutBtn: HTMLElement | null = null;
+        private resetBtn: HTMLElement | null = null;
+        
+        private scale: number = 1;
+        private pointX: number = 0;
+        private pointY: number = 0;
+        private start = { x: 0, y: 0 };
+        private isDragging: boolean = false;
+        
+        constructor() {
+          this.init();
+        }
+        
+        private init() {
+          if (document.getElementById('lightbox-modal')) return;
+          
+          const modalHtml = `
+            <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-label="Image viewer" aria-hidden="true">
+              <button class="lightbox-close" aria-label="Close viewer">&times;</button>
+              <div class="lightbox-content-wrapper">
+                <img id="lightbox-image" class="lightbox-image" src="" alt="" draggable="false" />
+              </div>
+              <div class="lightbox-controls">
+                <button class="lightbox-ctrl-btn zoom-out" aria-label="Zoom out">−</button>
+                <button class="lightbox-ctrl-btn zoom-reset" aria-label="Reset zoom">Reset</button>
+                <button class="lightbox-ctrl-btn zoom-in" aria-label="Zoom in">+</button>
+              </div>
+            </div>
+          `;
+          
+          const div = document.createElement('div');
+          div.innerHTML = modalHtml.trim();
+          const modalNode = div.firstChild as HTMLElement;
+          document.body.appendChild(modalNode);
+          
+          this.modal = document.getElementById('lightbox-modal');
+          this.img = document.getElementById('lightbox-image') as HTMLImageElement;
+          this.closeBtn = this.modal?.querySelector('.lightbox-close') as HTMLElement;
+          this.zoomInBtn = this.modal?.querySelector('.zoom-in') as HTMLElement;
+          this.zoomOutBtn = this.modal?.querySelector('.zoom-out') as HTMLElement;
+          this.resetBtn = this.modal?.querySelector('.zoom-reset') as HTMLElement;
+          
+          this.setupEvents();
+        }
+        
+        private setupEvents() {
+          // Listen for click on zoomable images
+          document.addEventListener('click', (e) => {
+            const target = (e.target as HTMLElement).closest('.zoomable');
+            if (target) {
+              e.preventDefault();
+              const imgEl = target.tagName === 'IMG' ? (target as HTMLImageElement) : target.querySelector('img');
+              if (imgEl && imgEl.src) {
+                this.open(imgEl.src, imgEl.alt);
+              }
+            }
+          });
+          
+          // Close triggers
+          this.closeBtn?.addEventListener('click', () => this.close());
+          this.modal?.addEventListener('click', (e) => {
+            if (e.target === this.modal || (e.target as HTMLElement).classList.contains('lightbox-content-wrapper')) {
+              this.close();
+            }
+          });
+          
+          window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isOpen()) {
+              this.close();
+            }
+          });
+          
+          // Zoom actions
+          this.zoomInBtn?.addEventListener('click', () => this.zoom(0.35));
+          this.zoomOutBtn?.addEventListener('click', () => this.zoom(-0.35));
+          this.resetBtn?.addEventListener('click', () => this.resetTransform());
+          
+          // Mouse wheel zoom
+          this.modal?.addEventListener('wheel', (e) => {
+            if (!this.isOpen()) return;
+            e.preventDefault();
+            const zoomFactor = e.deltaY < 0 ? 0.15 : -0.15;
+            this.zoom(zoomFactor, e.clientX, e.clientY);
+          }, { passive: false });
+          
+          // Drag and Pan events
+          const handleStart = (clientX: number, clientY: number) => {
+            if (this.scale <= 1) return;
+            this.isDragging = true;
+            this.start = { x: clientX - this.pointX, y: clientY - this.pointY };
+            if (this.img) this.img.style.cursor = 'grabbing';
+          };
+          
+          const handleMove = (clientX: number, clientY: number) => {
+            if (!this.isDragging) return;
+            this.pointX = clientX - this.start.x;
+            this.pointY = clientY - this.start.y;
+            this.updateTransform();
+          };
+          
+          const handleEnd = () => {
+            this.isDragging = false;
+            if (this.img) this.img.style.cursor = this.scale > 1 ? 'grab' : 'zoom-in';
+          };
+          
+          this.img?.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            handleStart(e.clientX, e.clientY);
+          });
+          
+          window.addEventListener('mousemove', (e) => {
+            handleMove(e.clientX, e.clientY);
+          });
+          
+          window.addEventListener('mouseup', () => {
+            handleEnd();
+          });
+          
+          // Touch pinch/pan support
+          let touchStartDist = 0;
+          this.img?.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+              handleStart(e.touches[0].clientX, e.touches[0].clientY);
+            } else if (e.touches.length === 2) {
+              this.isDragging = false;
+              touchStartDist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+              );
+            }
+          });
+          
+          this.img?.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1) {
+              handleMove(e.touches[0].clientX, e.touches[0].clientY);
+            } else if (e.touches.length === 2) {
+              e.preventDefault();
+              const dist = Math.hypot(
+                e.touches[0].clientX - e.touches[1].clientX,
+                e.touches[0].clientY - e.touches[1].clientY
+              );
+              const factor = (dist - touchStartDist) * 0.007;
+              const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+              const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+              this.zoom(factor, midX, midY);
+              touchStartDist = dist;
+            }
+          });
+          
+          this.img?.addEventListener('touchend', () => {
+            handleEnd();
+          });
+          
+          // Double click reset/zoom
+          this.img?.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            if (this.scale > 1) {
+              this.resetTransform();
+            } else {
+              this.zoom(1.5, e.clientX, e.clientY);
+            }
+          });
+        }
+        
+        private isOpen(): boolean {
+          return this.modal !== null && this.modal.getAttribute('aria-hidden') === 'false';
+        }
+        
+        private open(src: string, alt: string) {
+          if (!this.img || !this.modal) return;
+          this.img.src = src;
+          this.img.alt = alt || 'Zoomed image';
+          this.modal.setAttribute('aria-hidden', 'false');
+          this.modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+          this.resetTransform();
+        }
+        
+        private close() {
+          if (!this.modal) return;
+          this.modal.setAttribute('aria-hidden', 'true');
+          this.modal.classList.remove('active');
+          document.body.style.overflow = '';
+          setTimeout(() => {
+            if (this.img) this.img.src = '';
+          }, 300);
+        }
+        
+        private zoom(factor: number, clientX?: number, clientY?: number) {
+          if (!this.img) return;
+          const oldScale = this.scale;
+          this.scale += factor;
+          this.scale = Math.max(1, Math.min(this.scale, 5));
+          
+          if (this.scale === 1) {
+            this.pointX = 0;
+            this.pointY = 0;
+          } else if (clientX !== undefined && clientY !== undefined) {
+            const rect = this.img.getBoundingClientRect();
+            const offsetX = clientX - (rect.left + rect.width / 2);
+            const offsetY = clientY - (rect.top + rect.height / 2);
+            
+            const ratio = this.scale / oldScale - 1;
+            this.pointX -= offsetX * ratio;
+            this.pointY -= offsetY * ratio;
+          }
+          
+          this.updateTransform();
+        }
+        
+        private resetTransform() {
+          this.scale = 1;
+          this.pointX = 0;
+          this.pointY = 0;
+          this.updateTransform();
+        }
+        
+        private updateTransform() {
+          if (this.img) {
+            this.img.style.transform = `translate(${this.pointX}px, ${this.pointY}px) scale(${this.scale})`;
+            this.img.style.cursor = this.scale > 1 ? 'grab' : 'zoom-in';
+          }
+        }
+      }
+
+      // Initialize Lightbox
+      new ImageLightbox();
     </script>
   </body>
 </html>

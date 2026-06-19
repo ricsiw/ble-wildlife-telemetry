@@ -7,7 +7,6 @@
     <div class="custom-inner reveal">
 
       <div class="custom-text">
-        <span class="section-label">Bespoke</span>
         <h3 class="subsection-title">Custom Transmitters</h3>
         <p class="body-text">
           Every research project has its own unique challenges. Because of this, we build custom
@@ -22,12 +21,8 @@
           If you are interested in a custom transmitter solution, please reach out to us and we
           will discuss your requirements.
         </p>
-        <a href="mailto:info@example.com" class="cta-btn" id="contact-link">
-          Contact Us
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </a>
+        <p class="cta-email">Email: <a href="mailto:wohlfart@telemetry.hu" id="contact-link">wohlfart@telemetry.hu</a></p>
+        <p class="cta-site">Website: <a href="https://www.telemetry.hu" target="_blank" rel="noopener noreferrer">www.telemetry.hu</a></p>
       </div>
 
     </div>
@@ -66,31 +61,42 @@
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--c-text-dim);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+.cta-email {
+  margin: 0 0 1.3rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--c-surface);
-  background: var(--c-teal);
-  padding: 0.65rem 1.4rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-  box-shadow: 0 0 0 0 rgba(78, 204, 163, 0.4);
+  color: var(--c-text);
 }
 
-.cta-btn:hover {
-  background: #66ddb5;
-  transform: translateY(-1px);
-  box-shadow: 0 0 20px rgba(78, 204, 163, 0.35);
+.cta-email a {
+  color: var(--c-teal);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(78, 204, 163, 0.35);
+}
+
+.cta-email a:hover {
+  color: #66ddb5;
+  border-bottom-color: rgba(102, 221, 181, 0.75);
+}
+.cta-site {
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--c-text-dim);
+}
+
+.cta-site a {
+  color: var(--c-teal);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(78, 204, 163, 0.35);
+}
+
+.cta-site a:hover {
+  color: #66ddb5;
+  border-bottom-color: rgba(102, 221, 181, 0.75);
 }
 
 @media (max-width: 900px) {
