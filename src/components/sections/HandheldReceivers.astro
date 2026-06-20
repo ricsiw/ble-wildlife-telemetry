@@ -5,9 +5,9 @@ import imgMid     from '../../assets/Handheld/handheld-test-mid.jpg';
 import imgFar     from '../../assets/Handheld/handheld-test-far.jpg';
 
 const rangeLabels = [
-  { label: '~0 m', caption: 'Closest', img: imgClosest, alt: 'Handheld receiver test — very close range' },
-  { label: '~150 m', caption: 'Mid Range', img: imgMid, alt: 'Handheld receiver test — mid range' },
-  { label: '~3 km', caption: 'Maximum', img: imgFar, alt: 'Handheld receiver test — maximum open field range' },
+  { label: '~0 m', rssi: '-49 dBm', caption: 'Closest', img: imgClosest, alt: 'Handheld receiver test — very close range' },
+  { label: '~1.75 km', rssi: '-87 dBm', caption: 'Mid Range', img: imgMid, alt: 'Handheld receiver test — mid range' },
+  { label: '~3 km', rssi: '-100 dBm', caption: 'Maximum', img: imgFar, alt: 'Handheld receiver test — maximum open field range' },
 ];
 ---
 
@@ -41,6 +41,7 @@ const rangeLabels = [
           </div>
           <div class="range-meta">
             <span class="range-distance">{item.label}</span>
+            <span class="range-rssi">{item.rssi}</span>
             <span class="range-caption">{item.caption}</span>
           </div>
         </div>
@@ -83,16 +84,25 @@ const rangeLabels = [
 
 .range-meta {
   margin-top: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr; /* Stack elements on top of each other */
+  justify-items: center;      /* Center horizontally */
+  text-align: center;         /* Ensure text alignment stays centered */
   gap: 0.15rem;
+}
+
+.range-rssi {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  text-align: center;
 }
 
 .range-distance {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   font-size: 1.1rem;
+  text-align: center;
   color: var(--c-teal);
 }
 
@@ -102,16 +112,29 @@ const rangeLabels = [
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: var(--c-text-muted);
+    text-align: center;
 }
 
 @media (max-width: 640px) {
   .range-grid {
-    grid-template-columns: 1fr;
-    max-width: 340px;
-    margin-inline: auto;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    max-width: 100%;
+    margin-inline: 0;
   }
+
   .range-img {
-    aspect-ratio: 4 / 3;
+  }
+
+  .range-distance {
+    font-size: 0.85rem; 
+  }
+  .range-rssi {
+    font-size: 0.7rem;
+  }
+  .range-caption {
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
   }
 }
 </style>
