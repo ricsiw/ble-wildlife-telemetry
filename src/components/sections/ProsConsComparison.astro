@@ -1,8 +1,8 @@
 ---
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import img868 from '../../assets/Comparison/forest-range-test-868.jpg';
 import img24  from '../../assets/Comparison/forest-range-test-24.jpg';
-import { Icon } from 'astro-icon/components';
 
 const pros = [
   'Extremely low power consumption, leading to long operating times.',
@@ -48,7 +48,7 @@ const cons = [
           {cons.map((text) => (
             <tr class="con-row">
               <td class="type-cell">
-                <span class="type-badge type-con">Downside</span>
+                <span class="type-badge type-con">Disadvantage</span>
               </td>
               <td>{text}</td>
             </tr>
@@ -57,42 +57,34 @@ const cons = [
       </table>
     </div>
 
-    <!-- Rebuilt comparison slider -->
-    <div class="reveal" style="margin-top:3rem;">
-      <p class="section-label" style="margin-bottom:0.75rem;">Range Comparison</p>
-      <div class="compare-wrapper">
-        <div class="compare" id="range-compare" style="--pos: 50%;">
-          <div class="compare-base">
-            <Image src={img24} alt="2.4 GHz BLE transmitter range in dense forest" class="zoomable" />
-          </div>
-          <div class="compare-overlay">
-            <Image src={img868} alt="868 MHz Hornet transmitter range in dense forest" class="zoomable" />
-          </div>
-
-          <div class="compare-divider" aria-hidden="true"></div>
-
-          <input
-            class="compare-range"
-            type="range"
-            min="0"
-            max="100"
-            value="50"
-            autocomplete="off"
-            aria-label="Range comparison slider"
-          />
-        </div>
-
-        <!-- Labels -->
-        <div class="compare-labels">
-          <span class="compare-label compare-label-left">868 MHz Hornet</span>
-          <span class="compare-label compare-label-right">2.4 GHz BLE</span>
-        </div>
-        <p class="compare-caption">
-          2.4 GHz BLE vs. 868 MHz Hornet transmitter range in a dense forest environment.
-          Drag the slider to compare.
-        </p>
+<div class="reveal" style="margin-top:3rem;"> <p class="section-label" style="margin-bottom:0.75rem;">Range Comparison</p> <div class="compare-wrapper"> <div class="compare" id="range-compare" style="--pos: 50%;"> <div class="compare-base"> <Image src={img24} alt="2.4 GHz BLE transmitter range in dense forest" class="zoomable" /> <span class="floating-badge right-badge">2.4 GHz BLE</span>
       </div>
+      
+      <div class="compare-overlay"> <Image src={img868} alt="868 MHz Hornet transmitter range in dense forest" class="zoomable" /> <span class="floating-badge left-badge">868 MHz Hornet</span>
+      </div>
+
+      <div class="compare-divider" aria-hidden="true">
+        <div class="compare-handle">
+          <Icon name="lucide:chevrons-left-right" class="handle-svg" />
+        </div>
+      </div>
+
+      <input
+        class="compare-range"
+        type="range"
+        min="0"
+        max="100"
+        value="50"
+        autocomplete="off"
+        aria-label="Range comparison slider"
+      />
     </div>
+
+    <p class="compare-caption">
+      2.4 GHz BLE vs. 868 MHz Hornet transmitter range in a dense forest environment. Drag the slider to compare.
+    </p>
+  </div>
+</div>
 
 <script>
   // Slider rebuilt from scratch using a range input for robust pointer handling.
@@ -190,161 +182,193 @@ const cons = [
 }
 
 /* ── Comparison slider ───────────────────────────────────────── */
+
 .compare-wrapper {
-  max-width: 900px;
+  max-width: 900px; /*  */
 }
 
 .compare {
-  position: relative;
-  height: min(70vh, 540px);
-  min-height: 300px;
-  border-radius: 0.85rem;
-  overflow: hidden;
-  border: 1px solid rgba(78, 204, 163, 0.18);
+  position: relative; /* [cite: 135] */
+  height: min(70vh, 540px); /* [cite: 135] */
+  min-height: 300px; /* [cite: 135] */
+  border-radius: 0.85rem; /* [cite: 135] */
+  overflow: hidden; /* [cite: 135] */
+  border: 1px solid rgba(78, 204, 163, 0.18); /* [cite: 135] */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .compare-base,
 .compare-overlay {
-  position: absolute;
-  inset: 0;
+  position: absolute; /* [cite: 136] */
+  inset: 0; /* [cite: 136] */
 }
 
 .compare-base {
-  z-index: 1;
+  z-index: 1; /* [cite: 136] */
 }
 
 .compare-overlay {
-  z-index: 2;
-  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  z-index: 2; /*  */
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0); /*  */
 }
 
 .compare-base :global(img),
 .compare-overlay :global(img) {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  width: 100%; /*  */
+  height: 100%; /*  */
+  object-fit: cover; /*  */
+  display: block; /*  */
 }
 
-.compare-divider {
+/* Premium Floating Hardware Tags */
+.floating-badge {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: var(--pos);
-  transform: translateX(-50%);
-  width: 3px;
-  background: rgba(255, 255, 255, 0.85);
-  z-index: 3;
-  pointer-events: none;
-}
-
-.compare-divider::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 3px solid var(--c-teal);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232a4f47' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 8l-4 4 4 4'/%3E%3Cpath d='M17 8l4 4-4 4'/%3E%3Cpath d='M3 12h18'/%3E%3C/svg%3E");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 18px 18px;
-}
-
-.compare-range {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  z-index: 5;
-  background: transparent;
-  appearance: none;
-  cursor: ew-resize;
-}
-
-.compare-range::-webkit-slider-runnable-track {
-  height: 100%;
-  background: transparent;
-}
-
-.compare-range::-webkit-slider-thumb {
-  appearance: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
-}
-
-.compare-range::-moz-range-track {
-  height: 100%;
-  background: transparent;
-}
-
-.compare-range::-moz-range-thumb {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: transparent;
-  border: none;
-}
-
-.compare-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.6rem;
-  padding-inline: 0.25rem;
-}
-
-.compare-label {
+  top: 1.25rem;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(8px);
+  z-index: 4;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.3s ease;
+}
+
+.left-badge {
+  left: 1.25rem;
+  background: rgba(15, 31, 29, 0.85);
+  border: 1px solid rgba(78, 204, 163, 0.3);
   color: var(--c-teal);
 }
 
+.right-badge {
+  right: 1.25rem;
+  background: rgba(20, 24, 23, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--c-text-dim);
+}
+
+/* Linear Separator Line */
+.compare-divider {
+  position: absolute; /* [cite: 138] */
+  top: 0; /* [cite: 138] */
+  bottom: 0; /* [cite: 138] */
+  left: var(--pos); /* [cite: 138] */
+  transform: translateX(-50%); /* [cite: 138] */
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(78, 204, 163, 0.2),
+    rgba(255, 255, 255, 0.85) 20%,
+    rgba(255, 255, 255, 0.85) 80%,
+    rgba(78, 204, 163, 0.2)
+  );
+  z-index: 3; /* [cite: 139] */
+  pointer-events: none; /* [cite: 139] */
+}
+
+/* High-fidelity Vector Interactive Handle */
+.compare-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #0f1f1d;
+  border: 2px solid var(--c-teal);
+  color: var(--c-teal);
+  box-shadow: 
+    0 0 0 4px rgba(78, 204, 163, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.handle-svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+/* Scale & Highlight Interactions mapped cleanly onto the container hover state */
+.compare:hover .compare-handle {
+  transform: translate(-50%, -50%) scale(1.12);
+  background: var(--c-teal);
+  color: #0f1f1d;
+  box-shadow: 
+    0 0 0 6px rgba(78, 204, 163, 0.25),
+    0 12px 28px rgba(0, 0, 0, 0.6);
+}
+
+.compare:hover .compare-handle .handle-svg {
+  transform: scale(1.05);
+}
+
+/* Hidden Transparent Input Layer */
+.compare-range {
+  position: absolute; /* [cite: 142] */
+  inset: 0; /* [cite: 142] */
+  width: 100%; /* [cite: 142] */
+  height: 100%; /* [cite: 142] */
+  margin: 0; /* [cite: 142] */
+  z-index: 5; /* [cite: 143] */
+  background: transparent; /* [cite: 143] */
+  appearance: none; /* [cite: 143] */
+  cursor: ew-resize; /* [cite: 143] */
+}
+
+.compare-range::-webkit-slider-runnable-track {
+  height: 100%; /* [cite: 143] */
+  background: transparent; /* [cite: 143] */
+}
+.compare-range::-webkit-slider-thumb {
+  appearance: none; /* [cite: 143] */
+  width: 44px; /* Matches track geometry dimensions */
+  height: 44px;
+  background: transparent; /* [cite: 144] */
+  border: none; /* [cite: 144] */
+}
+.compare-range::-moz-range-track {
+  height: 100%; /* [cite: 144] */
+  background: transparent; /* [cite: 144] */
+}
+.compare-range::-moz-range-thumb {
+  width: 44px;
+  height: 44px;
+  background: transparent; /* [cite: 145] */
+  border: none; /* [cite: 145] */
+}
+
 .compare-caption {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--c-text-muted);
-  line-height: 1.5;
+  margin-top: 0.85rem;
+  font-size: 0.8rem; /* [cite: 148] */
+  color: var(--c-text-muted); /* [cite: 148] */
+  line-height: 1.5; /* [cite: 148] */
+  text-align: center;
 }
 
 @media (max-width: 600px) {
   .compare {
-    height: min(62vh, 400px);
-    min-height: 240px;
+    height: min(62vh, 400px); /* [cite: 149] */
+    min-height: 240px; /* [cite: 149] */
   }
-
-  .comparison-table,
-  .comparison-table thead,
-  .comparison-table tbody,
-  .comparison-table tr,
-  .comparison-table td {
-    display: block;
+  
+  /* Fade labels slightly on small mobile screens to optimize focus on image space */
+  .floating-badge {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    top: 0.75rem;
   }
-  .comparison-table thead {
-    display: none;
-  }
-  .comparison-table td {
-    padding: 0.6rem 1.25rem;
-    border-bottom: none;
-  }
-  .comparison-table td.type-cell {
-    padding-bottom: 0.15rem;
-  }
-  .comparison-table tr td:last-child {
-    padding-top: 0.15rem;
-    padding-bottom: 0.85rem;
-    border-bottom: 1px solid rgba(78, 204, 163, 0.1);
-  }
+  .left-badge { left: 0.75rem; }
+  .right-badge { right: 0.75rem; }
 }
 </style>
