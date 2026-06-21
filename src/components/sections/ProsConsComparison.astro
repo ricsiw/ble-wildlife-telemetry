@@ -1,29 +1,29 @@
 ---
-import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
-import img868 from '../../assets/Comparison/forest-range-test-868.jpg';
-import img24  from '../../assets/Comparison/forest-range-test-24.jpg';
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import img868 from "../../assets/Comparison/forest-range-test-868.jpg";
+import img24 from "../../assets/Comparison/forest-range-test-24.jpg";
 
 const pros = [
-  'Extremely low power consumption, leading to long operating times.',
-  'Direct broadcasting to standard smartphones.',
-  'Small, lightweight transmitters weighing as low as 60 mg.',
-  'Fast and simple data transfer for sensor metrics.',
-  'Short antenna length, around 3 cm.',
+  "Extremely low power consumption, leading to long operating times.",
+  "Direct broadcasting to standard smartphones.",
+  "Small, lightweight transmitters weighing as low as 60 mg.",
+  "Fast and simple data transfer for sensor metrics.",
+  "Short antenna length, around 3 cm.",
 ];
 
-const cons = [
-  'Much shorter reception range compared to the 868 MHz system.',
-];
+const cons = ["Much shorter reception range compared to the 868 MHz system."];
 ---
 
 <section class="comparison-section" id="pros-cons">
   <div class="page-container">
-
     <div class="reveal">
-      <h2 class="section-title">BLE vs. 868 MHz Range Comparison for Insect Transmitters in Forest</h2>
+      <h2 class="section-title">
+        BLE vs. 868 MHz Range Comparison for Insect Transmitters in Forest
+      </h2>
       <p class="body-text" style="margin-bottom:2rem;">
-        A direct comparison of our Bluetooth Low Energy system against the 868 MHz Hornet platform for insect tracking in dense forest environments.
+        A direct comparison of our Bluetooth Low Energy system against the 868
+        MHz Hornet platform for insect tracking in dense forest environments.
       </p>
     </div>
 
@@ -37,194 +37,229 @@ const cons = [
           </tr>
         </thead>
         <tbody>
-          {pros.map((text) => (
-            <tr class="pro-row">
-              <td class="type-cell">
-                <span class="type-badge type-pro">Advantage</span>
-              </td>
-              <td>{text}</td>
-            </tr>
-          ))}
-          {cons.map((text) => (
-            <tr class="con-row">
-              <td class="type-cell">
-                <span class="type-badge type-con">Disadvantage</span>
-              </td>
-              <td>{text}</td>
-            </tr>
-          ))}
+          {
+            pros.map((text) => (
+              <tr class="pro-row">
+                <td class="type-cell">
+                  <span class="type-badge type-pro">Advantage</span>
+                </td>
+                <td>{text}</td>
+              </tr>
+            ))
+          }
+          {
+            cons.map((text) => (
+              <tr class="con-row">
+                <td class="type-cell">
+                  <span class="type-badge type-con">Disadvantage</span>
+                </td>
+                <td>{text}</td>
+              </tr>
+            ))
+          }
         </tbody>
       </table>
     </div>
 
-<div class="reveal" style="margin-top:3rem;"> <p class="section-label" style="margin-bottom:0.75rem;">Range Comparison</p> <div class="compare-wrapper"> <div class="compare" id="range-compare" style="--pos: 50%;"> <div class="compare-base"> <Image src={img24} alt="2.4 GHz BLE transmitter range in dense forest" class="zoomable" /> <span class="floating-badge right-badge">2.4 GHz BLE</span>
-      </div>
-      
-      <div class="compare-overlay"> <Image src={img868} alt="868 MHz Hornet transmitter range in dense forest" class="zoomable" /> <span class="floating-badge left-badge">868 MHz Hornet</span>
-      </div>
+    <div class="reveal" style="margin-top:3rem;">
+      <p class="section-label" style="margin-bottom:0.75rem;">
+        Range Comparison
+      </p>
+      <div class="compare-wrapper">
+        <div class="compare" id="range-compare" style="--pos: 50%;">
+          <div class="compare-base">
+            <Image
+              src={img24}
+              alt="2.4 GHz BLE transmitter range in dense forest"
+              class="zoomable"
+            />
+            <span class="floating-badge right-badge">2.4 GHz BLE</span>
+          </div>
 
-      <div class="compare-divider" aria-hidden="true">
-        <div class="compare-handle">
-          <Icon name="lucide:chevrons-left-right" class="handle-svg" />
+          <div class="compare-overlay">
+            <Image
+              src={img868}
+              alt="868 MHz Hornet transmitter range in dense forest"
+              class="zoomable"
+            />
+            <span class="floating-badge left-badge">868 MHz Hornet</span>
+          </div>
+
+          <div class="compare-divider" aria-hidden="true">
+            <div class="compare-handle">
+              <Icon name="lucide:chevrons-left-right" class="handle-svg" />
+            </div>
+          </div>
+
+          <input
+            class="compare-range"
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            autocomplete="off"
+            aria-label="Range comparison slider"
+          />
         </div>
-      </div>
 
-      <input
-        class="compare-range"
-        type="range"
-        min="0"
-        max="100"
-        value="50"
-        autocomplete="off"
-        aria-label="Range comparison slider"
-      />
+        <p class="compare-caption">
+          2.4 GHz BLE vs. 868 MHz Hornet transmitter range in a dense forest
+          environment. Drag the slider to compare.
+        </p>
+      </div>
     </div>
 
-    <p class="compare-caption">
-      2.4 GHz BLE vs. 868 MHz Hornet transmitter range in a dense forest environment. Drag the slider to compare.
-    </p>
-  </div>
-</div>
+    <script>
+      // Slider rebuilt from scratch using a range input for robust pointer handling.
+      (function () {
+        const compare = document.getElementById("range-compare");
+        if (!compare) return;
+        const range = compare.querySelector(".compare-range");
+        if (!range) return;
 
-<script>
-  // Slider rebuilt from scratch using a range input for robust pointer handling.
-  (function() {
-    const compare = document.getElementById('range-compare');
-    if (!compare) return;
-    const range = compare.querySelector('.compare-range');
-    if (!range) return;
+        function applyPosition() {
+          compare.style.setProperty("--pos", range.value + "%");
+        }
 
-    function applyPosition() {
-      compare.style.setProperty('--pos', range.value + '%');
-    }
-
-    range.value = '50';
-    range.addEventListener('input', applyPosition);
-    range.addEventListener('change', applyPosition);
-    applyPosition();
-  })();
-</script>
-
+        range.value = "50";
+        range.addEventListener("input", applyPosition);
+        range.addEventListener("change", applyPosition);
+        applyPosition();
+      })();
+    </script>
   </div>
 </section>
 
 <style>
-.comparison-section {
-  padding-block: 5rem 4rem;
-}
+  .comparison-section {
+    padding-block: 5rem 4rem;
+  }
 
-/* ── Table ──────────────────────────────────────────────────── */
-.table-wrapper {
-  overflow: hidden;
-}
+  /* ── Table ──────────────────────────────────────────────────── */
+  .table-wrapper {
+    overflow: hidden;
+  }
 
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: clamp(0.82rem, 1.4vw, 0.95rem);
-}
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(0.82rem, 1.4vw, 0.95rem);
+  }
 
-.comparison-table thead tr {
-  background: rgba(78, 204, 163, 0.12);
-  border-bottom: 1px solid rgba(78, 204, 163, 0.2);
-}
+  .comparison-table thead tr {
+    background: rgba(78, 204, 163, 0.12);
+    border-bottom: 1px solid rgba(78, 204, 163, 0.2);
+  }
 
-.comparison-table th {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--c-teal);
-  padding: 0.85rem 1.25rem;
-  text-align: left;
-  font-weight: 700;
-}
+  .comparison-table th {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--c-teal);
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    font-weight: 700;
+  }
 
-.comparison-table td {
-  padding: 0.85rem 1.25rem;
-  color: var(--c-text-dim);
-  line-height: 1.6;
-  vertical-align: middle;
-  border-bottom: 1px solid rgba(78, 204, 163, 0.07);
-}
+  .comparison-table td {
+    padding: 0.85rem 1.25rem;
+    color: var(--c-text-dim);
+    line-height: 1.6;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(78, 204, 163, 0.07);
+  }
 
-.col-type { width: 130px; }
+  .col-type {
+    width: 130px;
+  }
 
-.pro-row:nth-child(odd) td  { background: rgba(22, 40, 36, 0.3); }
-.pro-row:nth-child(even) td { background: rgba(22, 40, 36, 0.0); }
-.con-row td                 { background: rgba(240, 168, 80, 0.06); }
-.con-row td:last-child      { color: var(--c-text); }
+  .pro-row:nth-child(odd) td {
+    background: rgba(22, 40, 36, 0.3);
+  }
+  .pro-row:nth-child(even) td {
+    background: rgba(22, 40, 36, 0);
+  }
+  .con-row td {
+    background: rgba(240, 168, 80, 0.06);
+  }
+  .con-row td:last-child {
+    color: var(--c-text);
+  }
 
-/* Type badges */
-.type-cell { white-space: nowrap; }
+  /* Type badges */
+  .type-cell {
+    white-space: nowrap;
+  }
 
-.type-badge {
-  display: inline-block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.63rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 0.2rem 0.55rem;
-  border-radius: 0.3rem;
-}
+  .type-badge {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.63rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 0.3rem;
+  }
 
-.type-pro {
-  background: rgba(78, 204, 163, 0.12);
-  color: var(--c-teal);
-  border: 1px solid rgba(78, 204, 163, 0.25);
-}
+  .type-pro {
+    background: rgba(78, 204, 163, 0.12);
+    color: var(--c-teal);
+    border: 1px solid rgba(78, 204, 163, 0.25);
+  }
 
-.type-con {
-  background: rgba(239, 83, 80, 0.12);      /* Soft red background tint */
-  color: #ff6b6b;                           /* Clean, high-contrast red font */
-  border: 1px solid rgba(239, 83, 80, 0.3);  /* Soft red boundary border */
-}
+  .type-con {
+    background: rgba(239, 83, 80, 0.12); /* Soft red background tint */
+    color: #ff6b6b; /* Clean, high-contrast red font */
+    border: 1px solid rgba(239, 83, 80, 0.3); /* Soft red boundary border */
+  }
 
-/* ── Comparison slider ───────────────────────────────────────── */
+  /* ── Comparison slider ───────────────────────────────────────── */
 
 .compare-wrapper {
-  max-width: 900px; /*  */
+  max-width: 900px;
 }
 
 .compare {
-  position: relative; /* [cite: 135] */
-  height: min(70vh, 540px); /* [cite: 135] */
-  min-height: 300px; /* [cite: 135] */
-  border-radius: 0.85rem; /* [cite: 135] */
-  overflow: hidden; /* [cite: 135] */
-  border: 1px solid rgba(78, 204, 163, 0.18); /* [cite: 135] */
+  position: relative;
+  width: 100%;
+  border-radius: 0.85rem;
+  overflow: hidden;
+  border: 1px solid rgba(78, 204, 163, 0.18);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.compare-base,
-.compare-overlay {
-  position: absolute; /* [cite: 136] */
-  inset: 0; /* [cite: 136] */
-}
-
 .compare-base {
-  z-index: 1; /* [cite: 136] */
+  position: relative;
+  width: 100%;
+  z-index: 1;
 }
 
 .compare-overlay {
-  z-index: 2; /*  */
-  clip-path: inset(0 calc(100% - var(--pos)) 0 0); /*  */
+  position: absolute; 
+  inset: 0;
+  z-index: 2;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
 }
 
-.compare-base :global(img),
+.compare-base :global(img) {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .compare-overlay :global(img) {
-  width: 100%; /*  */
-  height: 100%; /*  */
-  object-fit: cover; /*  */
-  display: block; /*  */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-/* Premium Floating Hardware Tags */
 .floating-badge {
   position: absolute;
-  top: 1.25rem;
-  font-family: 'JetBrains Mono', monospace;
+  bottom: 1.25rem;
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -254,11 +289,11 @@ const cons = [
 
 /* Linear Separator Line */
 .compare-divider {
-  position: absolute; /* [cite: 138] */
-  top: 0; /* [cite: 138] */
-  bottom: 0; /* [cite: 138] */
-  left: var(--pos); /* [cite: 138] */
-  transform: translateX(-50%); /* [cite: 138] */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  transform: translateX(-50%);
   width: 2px;
   background: linear-gradient(
     to bottom,
@@ -267,11 +302,10 @@ const cons = [
     rgba(255, 255, 255, 0.85) 80%,
     rgba(78, 204, 163, 0.2)
   );
-  z-index: 3; /* [cite: 139] */
-  pointer-events: none; /* [cite: 139] */
+  z-index: 3;
+  pointer-events: none;
 }
 
-/* High-fidelity Vector Interactive Handle */
 .compare-handle {
   position: absolute;
   top: 50%;
@@ -283,14 +317,18 @@ const cons = [
   background: #0f1f1d;
   border: 2px solid var(--c-teal);
   color: var(--c-teal);
-  box-shadow: 
+  box-shadow:
     0 0 0 4px rgba(78, 204, 163, 0.15),
     0 8px 24px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(4px);
-  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    background-color 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
 }
 
 .handle-svg {
@@ -299,12 +337,11 @@ const cons = [
   transition: transform 0.2s ease;
 }
 
-/* Scale & Highlight Interactions mapped cleanly onto the container hover state */
 .compare:hover .compare-handle {
   transform: translate(-50%, -50%) scale(1.12);
   background: var(--c-teal);
   color: #0f1f1d;
-  box-shadow: 
+  box-shadow:
     0 0 0 6px rgba(78, 204, 163, 0.25),
     0 12px 28px rgba(0, 0, 0, 0.6);
 }
@@ -313,62 +350,60 @@ const cons = [
   transform: scale(1.05);
 }
 
-/* Hidden Transparent Input Layer */
 .compare-range {
-  position: absolute; /* [cite: 142] */
-  inset: 0; /* [cite: 142] */
-  width: 100%; /* [cite: 142] */
-  height: 100%; /* [cite: 142] */
-  margin: 0; /* [cite: 142] */
-  z-index: 5; /* [cite: 143] */
-  background: transparent; /* [cite: 143] */
-  appearance: none; /* [cite: 143] */
-  cursor: ew-resize; /* [cite: 143] */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 5;
+  background: transparent;
+  appearance: none;
+  cursor: ew-resize;
 }
 
 .compare-range::-webkit-slider-runnable-track {
-  height: 100%; /* [cite: 143] */
-  background: transparent; /* [cite: 143] */
+  height: 100%;
+  background: transparent;
 }
 .compare-range::-webkit-slider-thumb {
-  appearance: none; /* [cite: 143] */
-  width: 44px; /* Matches track geometry dimensions */
+  appearance: none;
+  width: 44px;
   height: 44px;
-  background: transparent; /* [cite: 144] */
-  border: none; /* [cite: 144] */
+  background: transparent;
+  border: none;
 }
 .compare-range::-moz-range-track {
-  height: 100%; /* [cite: 144] */
-  background: transparent; /* [cite: 144] */
+  height: 100%;
+  background: transparent;
 }
 .compare-range::-moz-range-thumb {
   width: 44px;
   height: 44px;
-  background: transparent; /* [cite: 145] */
-  border: none; /* [cite: 145] */
+  background: transparent;
+  border: none;
 }
 
 .compare-caption {
   margin-top: 0.85rem;
-  font-size: 0.8rem; /* [cite: 148] */
-  color: var(--c-text-muted); /* [cite: 148] */
-  line-height: 1.5; /* [cite: 148] */
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  line-height: 1.5;
   text-align: center;
 }
 
 @media (max-width: 600px) {
-  .compare {
-    height: min(62vh, 400px); /* [cite: 149] */
-    min-height: 240px; /* [cite: 149] */
-  }
   
-  /* Fade labels slightly on small mobile screens to optimize focus on image space */
   .floating-badge {
     font-size: 0.65rem;
     padding: 0.3rem 0.6rem;
-    top: 0.75rem;
+    bottom: 0.75rem;
   }
-  .left-badge { left: 0.75rem; }
-  .right-badge { right: 0.75rem; }
+  .left-badge {
+    left: 0.75rem;
+  }
+  .right-badge {
+    right: 0.75rem;
+  }
 }
 </style>

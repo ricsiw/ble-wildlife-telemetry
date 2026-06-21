@@ -1,15 +1,27 @@
 ---
 import { Image } from 'astro:assets';
 import Gallery from '../Gallery.astro';
+
+// Original Assets
 import imgBeacon from '../../assets/Introduction/BLE Beacon Top Down.jpg';
 import imgViper  from '../../assets/Introduction/Viper Link Top Down.jpg';
 import imgWasp   from '../../assets/Introduction/wasp-with-tr-edited.jpg';
+
+// Research Application Montage Assets
+import imgEgg       from '../../assets/Introduction/dummy-egg.jpg';
+import imgFrog      from '../../assets/Introduction/frog-w-transmitter-clean.jpg';
+import imgBat       from '../../assets/Introduction/jeladó denevéren.jpg';
+import imgButterfly from '../../assets/Introduction/lepke jeladó papilio antimachus.jpg';
+import imgMouse     from '../../assets/Introduction/mouse-implant.jpg';
+import imgOwl       from '../../assets/Introduction/owl-w-transmitter.jpg';
+import imgVole      from '../../assets/Introduction/root-vole-clean.jpg';
+import imgHedgehog  from '../../assets/Introduction/suni.jpg';
+import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
 ---
 
 <section class="intro-section" id="introduction">
   <div class="page-container">
 
-    <!-- Text -->
     <div class="intro-text reveal">
       <h1 class="section-title">Introduction</h1>
       <p class="body-text">
@@ -26,7 +38,6 @@ import imgWasp   from '../../assets/Introduction/wasp-with-tr-edited.jpg';
       </p>
     </div>
 
-    <!-- Gallery -->
     <div class="intro-gallery-wrap reveal" style="transition-delay:0.15s;">
       <Gallery
         containerId="intro-gallery"
@@ -37,6 +48,108 @@ import imgWasp   from '../../assets/Introduction/wasp-with-tr-edited.jpg';
         ]}
         autoSlideInterval={5000}
       />
+    </div>
+
+    <div class="apps-intro reveal" style="transition-delay:0.1s;">
+      <p class="body-text">
+        The table below highlights various potential use cases and research applications supported by the system:
+      </p>
+    </div>
+
+    <div class="apps-split-grid">
+      
+      <div class="apps-table-card glass-card reveal">
+        <table class="apps-table">
+          <thead>
+            <tr>
+              <th>Research Application</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Insect Tracking</strong></td>
+              <td>Deploying ultra-lightweight transmitters (down to 60 mg) to study the movement patterns and behaviors of small insect species.</td>
+            </tr>
+            <tr>
+              <td><strong>Urban Wildlife Monitoring</strong></td>
+              <td>Tracking the behavior, home ranges, and habitat utilization of urban wildlife, such as hedgehogs, within developed environments.</td>
+            </tr>
+            <tr>
+              <td><strong>Bat Roosting & Movement</strong></td>
+              <td>Monitoring bats to analyze fine-scale local movements, foraging flight activity, and roosting habits.</td>
+            </tr>
+            <tr>
+              <td><strong>Small Mammal Tracking</strong></td>
+              <td>Studying tunnel, runway, and burrow usage among small mammals to map underground or covered activity patterns.</td>
+            </tr>
+            <tr>
+              <td><strong>Avian Nest Box Studies</strong></td>
+              <td>Monitoring songbirds to log individual nest box visits. Unlike RFID systems that only record actual entry, BLE can detect proximity. This shows when a bird simply checks a nest from a nearby branch and flies away.</td>
+            </tr>
+            <tr>
+              <td><strong>Reptile Body Temperature</strong></td>
+              <td>Tracking reptiles while continuously logging real-time changes in their body temperature.</td>
+            </tr>
+            <tr>
+              <td><strong>Microclimate & Environmental Monitoring</strong></td>
+              <td>Logging localized environmental parameters, including ambient temperature, humidity, and soil moisture alongside animal telemetry data.</td>
+            </tr>
+            <tr>
+              <td><strong>Incubation & Breeding Studies</strong></td>
+              <td>Utilizing sensor-equipped dummy eggs to gather precise temperature, orientation, and handling data during avian nesting cycles.</td>
+            </tr>
+            <tr>
+              <td><strong>Multi-Year Monitoring</strong></td>
+              <td>Conducting continuous, multi-year, or lifelong behavioral studies on small home-range species.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="apps-montage-container reveal" style="transition-delay:0.15s;">
+        <div class="photo-pile">
+          
+          <div class="pile-card img-bat" style="z-index: 10;">
+            <Image src={imgBat} alt="Radio transmitter on a bat" class="zoomable" />
+          </div>
+          
+
+          <div class="pile-card img-egg" style="z-index: 11;">
+            <Image src={imgEgg} alt="Tracking sensors embedded inside a dummy egg" class="zoomable" />
+          </div>
+
+          <div class="pile-card img-owl" style="z-index: 12;">
+            <Image src={imgOwl} alt="Owl equipped with a transmitter unit" class="zoomable" />
+          </div>
+          
+          <div class="pile-card img-mouse" style="z-index: 13;">
+            <Image src={imgMouse} alt="Small mammal tracking implant view" class="zoomable" />
+          </div>
+          
+          <div class="pile-card img-frog" style="z-index: 14;">
+            <Image src={imgFrog} alt="Miniature transmitter attached safely to a frog" class="zoomable" />
+          </div>
+          
+          <div class="pile-card img-butterfly" style="z-index: 15;">
+            <Image src={imgButterfly} alt="Papilio antimachus butterfly tracking experiment" class="zoomable" />
+          </div>
+          
+          <div class="pile-card img-vole" style="z-index: 16;">
+            <Image src={imgVole} alt="Root vole telemetry movement profiling" class="zoomable" />
+          </div>
+          
+          <div class="pile-card img-tit" style="z-index: 17;">
+            <Image src={imgTit} alt="Great tit bird with proximity logging unit" class="zoomable" />
+          </div>
+          
+          <div class="pile-card img-hedgehog" style="z-index: 18;">
+            <Image src={imgHedgehog} alt="Hedgehog tag attachment overview" class="zoomable" />
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -53,5 +166,205 @@ import imgWasp   from '../../assets/Introduction/wasp-with-tr-edited.jpg';
 
 .intro-gallery-wrap {
   margin-top: 2rem;
+}
+
+.apps-intro {
+  margin-top: 4.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Split Column Configuration */
+.apps-split-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+/* ── Application Specifications Table ──────────────────────── */
+.apps-table-card {
+  overflow: hidden;
+  border: 1px solid rgba(78, 204, 163, 0.12);
+}
+
+.apps-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.apps-table thead tr {
+  background: rgba(78, 204, 163, 0.14);
+  border-bottom: 1px solid rgba(78, 204, 163, 0.2);
+}
+
+.apps-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--c-teal);
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  font-weight: 700;
+}
+
+.apps-table td {
+  padding: 0.85rem 1.1rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  border-bottom: 1px solid rgba(78, 204, 163, 0.07);
+  vertical-align: top;
+  color: var(--c-text-dim);
+}
+
+.apps-table td strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.apps-table tr:nth-child(even) td {
+  background: rgba(22, 40, 36, 0.25);
+}
+
+.apps-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Fluid Aspect-Ratio Photo Montage Pile ─────────────────── */
+.apps-montage-container {
+  width: 100%;
+}
+
+.photo-pile {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Locks layout proportions down across all dimensions */
+  margin-inline: auto;
+  margin-top: 2.5rem;
+}
+
+/* Single Frame Base Graphic Architecture */
+.pile-card {
+  position: absolute;
+  border-radius: 0.35rem;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0d1211;
+  transition: 
+    transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), 
+    box-shadow 0.3s ease, 
+    z-index 0s;
+}
+
+.pile-card :global(.zoomable) {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pile-card:hover {
+  transform: scale(1.1) rotate(0deg) !important;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.7), 
+    0 0 15px rgba(78, 204, 163, 0.25);
+  z-index: 99 !important;
+}
+
+/* Absolute Layout Matrix Coordinates (Driven by Source Aspect Ratios) */
+.img-bat {
+  width: 38%;
+  top: 2%;
+  left: 2%;
+  transform: rotate(-6deg);
+}
+
+.img-owl {
+  width: 25%;
+  top: 0%;
+  right: 13%;
+  transform: rotate(5deg);
+}
+
+.img-egg {
+  width: 36%;
+  top: -15%;
+  left: 36%;
+  transform: rotate(3deg);
+}
+
+.img-frog {
+  width: 41%;
+  top: 29%;
+  left: 4%;
+  transform: rotate(8deg);
+}
+
+.img-mouse {
+  width: 38%;
+  top: 27%;
+  left: 35%;
+  transform: rotate(-3deg);
+}
+
+.img-butterfly {
+  width: 36%;
+  top: 33%;
+  right: 2%;
+  transform: rotate(-5deg);
+}
+
+.img-vole {
+  width: 36%;
+  bottom: 8%;
+  left: 7%;
+  transform: rotate(-4deg);
+}
+
+.img-hedgehog {
+  width: 36%;
+  bottom: -4%;
+  left: 53%;
+  transform: rotate(5deg);
+}
+
+.img-tit {
+  width: 44%;
+  bottom: 16%;
+  right: 18%;
+  transform: rotate(9deg);
+}
+
+/* ── Responsive Display Adaptations ───────────────────────── */
+@media (max-width: 1024px) {
+  .apps-split-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  
+  .photo-pile {
+    max-width: 580px; /* Clamps layout scale maximum constraint on mid screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .apps-intro {
+    margin-top: 3.5rem;
+  }
+  
+  .apps-table th, 
+  .apps-table td {
+    padding: 0.7rem 0.85rem;
+  }
+  
+  .apps-table th {
+    font-size: 0.62rem;
+  }
+  
+  .apps-table td {
+    font-size: 0.8rem;
+  }
 }
 </style>
