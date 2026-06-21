@@ -17,6 +17,7 @@ import imgOwl       from '../../assets/Introduction/owl-w-transmitter.jpg';
 import imgVole      from '../../assets/Introduction/root-vole-clean.jpg';
 import imgHedgehog  from '../../assets/Introduction/suni.jpg';
 import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
+import imgViperImpl     from '../../assets/Introduction/rákosi vipera beültetett jeladó.jpg';
 ---
 
 <section class="intro-section" id="introduction">
@@ -76,7 +77,7 @@ import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
               <td>Tracking the behavior, home ranges, and habitat utilization of urban wildlife, such as hedgehogs, within developed environments.</td>
             </tr>
             <tr>
-              <td><strong>Bat Roosting & Movement</strong></td>
+              <td><strong>Bat Monitoring</strong></td>
               <td>Monitoring bats to analyze fine-scale local movements, foraging flight activity, and roosting habits.</td>
             </tr>
             <tr>
@@ -145,6 +146,10 @@ import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
           
           <div class="pile-card img-hedgehog" style="z-index: 18;">
             <Image src={imgHedgehog} alt="Hedgehog tag attachment overview" class="zoomable" />
+          </div>
+
+          <div class="pile-card img-viper" style="z-index: 19;">
+            <Image src={imgViperImpl} alt="Viper implant transmitter overview" class="zoomable" />
           </div>
 
         </div>
@@ -240,7 +245,7 @@ import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
   width: 100%;
   aspect-ratio: 1 / 1; /* Locks layout proportions down across all dimensions */
   margin-inline: auto;
-  margin-top: 2.5rem;
+  margin-top: 1rem;
 }
 
 /* Single Frame Base Graphic Architecture */
@@ -297,7 +302,7 @@ import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
 
 .img-frog {
   width: 41%;
-  top: 29%;
+  top: 36%;
   left: 4%;
   transform: rotate(8deg);
 }
@@ -318,24 +323,32 @@ import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
 
 .img-vole {
   width: 36%;
-  bottom: 8%;
+  bottom: 9%;
   left: 7%;
   transform: rotate(-4deg);
 }
 
 .img-hedgehog {
   width: 36%;
-  bottom: -4%;
-  left: 53%;
-  transform: rotate(5deg);
+  bottom: -10%;
+  left: 60%;
+  transform: rotate(-5deg);
 }
 
 .img-tit {
-  width: 44%;
+  width: 40%;
   bottom: 16%;
-  right: 18%;
+  right: 12%;
   transform: rotate(9deg);
 }
+
+.img-viper {
+  width: 26%;
+  bottom: -19%;
+  left: 38%;
+  transform: rotate(4deg);
+}
+
 
 /* ── Responsive Display Adaptations ───────────────────────── */
 @media (max-width: 1024px) {
@@ -345,7 +358,7 @@ import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
   }
   
   .photo-pile {
-    max-width: 580px; /* Clamps layout scale maximum constraint on mid screens */
+    max-width: 480px; /* Clamps layout scale maximum constraint on mid screens */
   }
 }
 
