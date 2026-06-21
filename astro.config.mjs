@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ricsiw.github.io',
-  base: process.env.GITHUB_ACTIONS ? '/ble-product-page' : '/',
+  base: process.env.GITHUB_ACTIONS ? '/ble-wildlife-telemetry' : '/',
   vite: {
     plugins: [tailwindcss()]
   },
