@@ -17,7 +17,8 @@ import imgOwl       from '../../assets/Introduction/owl-w-transmitter.jpg';
 import imgVole      from '../../assets/Introduction/root-vole-clean.jpg';
 import imgHedgehog  from '../../assets/Introduction/suni.jpg';
 import imgTit       from '../../assets/Introduction/széncinege jeladó.jpg';
-import imgViperImpl     from '../../assets/Introduction/rákosi vipera beültetett jeladó.jpg';
+import imgViperImpl from '../../assets/Introduction/rákosi vipera beültetett jeladó.jpg';
+import imgHamster   from '../../assets/Introduction/horcsog-impl.jpg';
 ---
 
 <section class="intro-section" id="introduction">
@@ -110,11 +111,14 @@ import imgViperImpl     from '../../assets/Introduction/rákosi vipera beültete
 
       <div class="apps-montage-container reveal" style="transition-delay:0.15s;">
         <div class="photo-pile">
-          
+
+          <div class="pile-card img-hamster" style="z-index: 9;">
+            <Image src={imgHamster} alt="Radio transmitter inside a hamster" class="zoomable" />
+          </div>  
+
           <div class="pile-card img-bat" style="z-index: 10;">
             <Image src={imgBat} alt="Radio transmitter on a bat" class="zoomable" />
-          </div>
-          
+          </div>  
 
           <div class="pile-card img-egg" style="z-index: 11;">
             <Image src={imgEgg} alt="Tracking sensors embedded inside a dummy egg" class="zoomable" />
@@ -279,10 +283,17 @@ import imgViperImpl     from '../../assets/Introduction/rákosi vipera beültete
 }
 
 /* Absolute Layout Matrix Coordinates (Driven by Source Aspect Ratios) */
-.img-bat {
+.img-hamster {
   width: 38%;
-  top: 2%;
-  left: 2%;
+  top: -4%;
+  left: 3%;
+  transform: rotate(-14deg);
+}
+
+.img-bat {
+  width: 31%;
+  top: 8%;
+  left: 24%;
   transform: rotate(-6deg);
 }
 
