@@ -9,6 +9,7 @@ import RadioFingerprinting   from '../components/sections/RadioFingerprinting.as
 import RadioTraps            from '../components/sections/RadioTraps.astro';
 import HandheldReceivers     from '../components/sections/HandheldReceivers.astro';
 import PhoneReceivers        from '../components/sections/PhoneReceivers.astro';
+import DroneReceivers        from '../components/sections/DroneReceivers.astro';
 import ProsConsComparison    from '../components/sections/ProsConsComparison.astro';
 import ViperBeacon           from '../components/sections/ViperBeacon.astro';
 import InsectTransmitters    from '../components/sections/InsectTransmitters.astro';
@@ -19,30 +20,25 @@ import PageFooter            from '../components/sections/PageFooter.astro';
 <BaseLayout>
   <main>
 
-    <!-- ── Hero Banner ──────────────────────────────────────── -->
     <Banner />
 
-    <!-- ── Introduction ─────────────────────────────────────── -->
     <Introduction />
 
-    <!-- ── BLE Stationary Receivers ─────────────────────────── -->
     <div class="section-divider page-container" style="margin-block: 3rem;"></div>
     <StationaryReceivers />
     <ReceiverNetwork />
     <DataLogger />
     <RadioFingerprinting />
     <RadioTraps />
+    <DroneReceivers />
 
-    <!-- ── Handheld BLE Receivers ───────────────────────────── -->
     <div class="section-divider page-container" style="margin-block: 3rem;"></div>
     <HandheldReceivers />
     <PhoneReceivers />
+    <div class="section-divider page-container" style="margin-block: 2.5rem;"></div>
 
-    <!-- ── Pros / Cons Comparison ───────────────────────────── -->
-    <div class="section-divider page-container" style="margin-block: 3rem;"></div>
     <ProsConsComparison />
 
-    <!-- ── Transmitters ─────────────────────────────────────── -->
     <div class="section-divider page-container" style="margin-block: 3rem;"></div>
     <section class="transmitters-header" id="transmitters">
       <div class="page-container">
@@ -61,7 +57,6 @@ import PageFooter            from '../components/sections/PageFooter.astro';
     <div class="section-divider page-container" style="margin-block: 2.5rem;"></div>
     <CustomTransmitters />
 
-    <!-- ── Footer ───────────────────────────────────────────── -->
     <PageFooter />
 
   </main>

@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import imgDroneMeasure from '../../assets/Drone/final-drone-measurement-gradient.jpg';
+import imgDronePhoto   from '../../assets/Drone/upscaled-drone-photo.jpg';
+---
+
+<section class="drone-section" id="drone-receivers">
+  <div class="page-container">
+    <div class="drone-inner">
+      
+      <div class="drone-text reveal">
+        <h3 class="subsection-title">Drone-based Receivers</h3>
+        <p class="body-text">
+          Using drone-based receivers enables efficient, semi-autonomous data collection across wide areas. The system automatically gathers tracking and sensor data along pre-planned flight paths, significantly simplifying field operations. 
+        </p>
+        <p class="body-text" style="margin-top:1rem;">
+          By continuously logging the received signal strength (RSS) during the flight, post-flight algorithms can evaluate the recorded data to calculate the exact positions of the transmitters. This setup streamlines the tracking workflow by turning automated aerial surveys into precise positional data with minimal manual effort.
+        </p>
+      </div>
+
+      <div class="drone-images reveal reveal-delay-1">
+        <div class="drone-frame glass-card">
+          <Image 
+            src={imgDroneMeasure} 
+            alt="Drone tracking received signal strength matrix and gradient visualization layout" 
+            class="drone-img zoomable" 
+          />
+        </div>
+        <div class="drone-frame glass-card">
+          <Image 
+            src={imgDronePhoto} 
+            alt="Aerial drone telemetry receiver deployed in field operation" 
+            class="drone-img zoomable" 
+          />
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.drone-section {
+  padding-block: 3.5rem;
+}
+
+.drone-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.drone-text {
+  width: 100%;
+}
+
+.drone-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.drone-frame {
+  overflow: hidden;
+  border-radius: 0.35rem;
+  background: rgba(10, 20, 18, 0.2);
+}
+
+.drone-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Precise aspect-ratio locks from image dimensions */
+.drone-images .drone-frame:nth-child(1) .drone-img {
+  aspect-ratio: 1399 / 1145;
+}
+
+.drone-images .drone-frame:nth-child(2) .drone-img {
+  aspect-ratio: 1097 / 769;
+}
+
+.drone-frame:hover .drone-img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 1024px) {
+  .drone-inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .drone-images {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+</style>
